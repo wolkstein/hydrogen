@@ -163,7 +163,8 @@ int main(int argc, char *argv[])
 		QCommandLineOption songFileOption( QStringList() << "s" << "song", "Load a song (*.h2song) at startup", "File" );
 		QCommandLineOption kitOption( QStringList() << "k" << "kit", "Load a drumkit at startup", "DrumkitName" );
 		QCommandLineOption verboseOption( QStringList() << "V" << "verbose", "Level, if present, may be None, Error, Warning, Info, Debug or 0xHHHH","Level");
-		
+		QCommandLineOption fullscreenOption( QStringList() << "f" << "fullscreen" , "start H2 in fullscreenMode");
+
 		parser.addHelpOption();
 		parser.addVersionOption();
 		parser.addOption( audioDriverOption );
@@ -174,7 +175,7 @@ int main(int argc, char *argv[])
 		parser.addOption( songFileOption );
 		parser.addOption( kitOption );
 		parser.addOption( verboseOption );
-		
+		parser.addOption( fullscreenOption );
 		
 		//Conditional options
 		#ifdef H2CORE_HAVE_JACKSESSION
@@ -192,6 +193,7 @@ int main(int argc, char *argv[])
 		QString sSongFilename = parser.value ( songFileOption );
 		QString sDrumkitToLoad = parser.value( kitOption );
 		QString sVerbosityString = parser.value( verboseOption );
+		bool	bStartInFullscreen = parser.isSet(fullscreenOption );
 		
 		unsigned logLevelOpt = H2Core::Logger::Error;
 		if( parser.isSet(verboseOption) ){
@@ -255,6 +257,8 @@ int main(int argc, char *argv[])
 		else if ( sSelectedDriver == "alsa" ) {
 			pPref->m_sAudioDriver = "Alsa";
 		}
+
+		pPref->setStartInFullscreenMode(bStartInFullscreen);
 
 		QString family = pPref->getApplicationFontFamily();
 		pQApp->setFont( QFont( family, pPref->getApplicationFontPointSize() ) );
