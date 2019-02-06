@@ -26,7 +26,10 @@
 #include "InstrumentEditor/InstrumentEditorPanel.h"
 #include "SoundLibrary/SoundLibraryPanel.h"
 
+#include <hydrogen/Preferences.h>
 #include <QGridLayout>
+
+using namespace H2Core;
 
 const char* InstrumentRack::__class_name = "InstrumentRack";
 
@@ -34,9 +37,10 @@ InstrumentRack::InstrumentRack( QWidget *pParent )
  : QWidget( pParent )
  , Object( __class_name )
 {
-	INFOLOG( "INIT" );
+    INFOLOG( "INIT" );
+    resize( 290, 405 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) resize( 290 * 2, 405 );
 
-	resize( 290, 405 );
 	setMinimumSize( width(), height() );
 	setFixedWidth( width() );
 
@@ -90,9 +94,9 @@ InstrumentRack::InstrumentRack( QWidget *pParent )
 	pGrid->setSpacing( 0 );
 	pGrid->setMargin( 0 );
 
-	pGrid->addWidget( pTabButtonsPanel, 0, 0, 1, 3 );
+    if( Preferences::get_instance()->getDefaultUILayout() != Preferences::UI_LAYOUT_TABBED ) pGrid->addWidget( pTabButtonsPanel, 0, 0, 1, 3 );
 	pGrid->addWidget( InstrumentEditorPanel::get_instance(), 2, 1 );
-	pGrid->addWidget( m_pSoundLibraryPanel, 2, 1 );
+    if( Preferences::get_instance()->getDefaultUILayout() != Preferences::UI_LAYOUT_TABBED ) pGrid->addWidget( m_pSoundLibraryPanel, 2, 1 );
 
 	this->setLayout( pGrid );
 

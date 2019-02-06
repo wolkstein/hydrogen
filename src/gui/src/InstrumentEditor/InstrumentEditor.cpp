@@ -64,11 +64,11 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	, m_pInstrument( nullptr )
 	, m_nSelectedLayer( 0 )
 {
-	setFixedWidth( 290 );
-
+    setFixedWidth( 290 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) setFixedWidth( 290 * 2 );
 	// Instrument properties top
 	m_pInstrumentPropTop = new PixmapWidget( this );
-	m_pInstrumentPropTop->setPixmap( "/instrumentEditor/instrumentTab_top.png" );
+    m_pInstrumentPropTop->setPixmap( "/instrumentEditor/instrumentTab_top.png" );
 
 	m_pShowInstrumentBtn = new ToggleButton(
 							   m_pInstrumentPropTop,
@@ -102,7 +102,13 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	// Instrument properties
 	m_pInstrumentProp = new PixmapWidget( this );
 	m_pInstrumentProp->move(0, 31);
-	m_pInstrumentProp->setPixmap( "/instrumentEditor/instrumentTab_new.png" );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pInstrumentProp->setPixmap( "/instrumentEditor/iTab_new_T.png" );
+    }
+    else
+    {
+        m_pInstrumentProp->setPixmap( "/instrumentEditor/instrumentTab_new.png" );
+    }
 
 	m_pNameLbl = new ClickableLabel( m_pInstrumentProp );
 	m_pNameLbl->setGeometry( 8, 5, 275, 28 );
@@ -111,8 +117,14 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	//Midi Out
 
 	m_pMidiOutChannelLCD = new LCDDisplay( m_pInstrumentProp, LCDDigit::SMALL_BLUE, 4 );
-	m_pMidiOutChannelLCD->move( 67, 261 );
-	m_pMidiOutChannelLCD->setToolTip(QString(trUtf8("Midi out channel")));
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pMidiOutChannelLCD->move( 356, 125 );
+    }
+    else
+    {
+        m_pMidiOutChannelLCD->move( 67, 261 );
+    }
+    m_pMidiOutChannelLCD->setToolTip(QString(trUtf8("Midi out channel")));
 
 
 	m_pAddMidiOutChannelBtn = new Button(
@@ -123,7 +135,13 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 								  QSize( 16, 8 )
 								  );
 
-	m_pAddMidiOutChannelBtn->move( 109, 260 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pAddMidiOutChannelBtn->move( 398, 124 );
+    }
+    else
+    {
+        m_pAddMidiOutChannelBtn->move( 109, 260 );
+    }
 	connect( m_pAddMidiOutChannelBtn, SIGNAL( clicked(Button*) ), this, SLOT( midiOutChannelBtnClicked(Button*) ) );
 
 
@@ -135,13 +153,16 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 								  QSize(16,8)
 								  );
 	m_pDelMidiOutChannelBtn->move( 109, 269 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_pDelMidiOutChannelBtn->move( 398, 132 );
+
 	connect( m_pDelMidiOutChannelBtn, SIGNAL( clicked(Button*) ), this, SLOT( midiOutChannelBtnClicked(Button*) ) );
 
 
 	///
 	m_pMidiOutNoteLCD = new LCDDisplay( m_pInstrumentProp, LCDDigit::SMALL_BLUE, 4 );
 	m_pMidiOutNoteLCD->move( 160, 261 );
-
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pMidiOutNoteLCD->move( 449, 125 );
 	m_pAddMidiOutNoteBtn = new Button(
 							   m_pInstrumentProp,
 							   "/lcd/LCDSpinBox_up_on.png",
@@ -155,6 +176,7 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 
 
 	m_pAddMidiOutNoteBtn->move( 202, 260 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pAddMidiOutNoteBtn->move( 491, 124 );
 	connect( m_pAddMidiOutNoteBtn, SIGNAL( clicked(Button*) ), this, SLOT( midiOutNoteBtnClicked(Button*) ) );
 
 
@@ -168,6 +190,7 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 							   true
 							   );
 	m_pDelMidiOutNoteBtn->move( 202, 269 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pDelMidiOutNoteBtn->move( 491, 133 );
 	connect( m_pDelMidiOutNoteBtn, SIGNAL( clicked(Button*) ), this, SLOT( midiOutNoteBtnClicked(Button*) ) );
 
 	/////////////
@@ -178,7 +201,13 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	connect( m_pNameLbl, SIGNAL( labelClicked(ClickableLabel*) ), this, SLOT( labelClicked(ClickableLabel*) ) );
 
 	m_pRandomPitchRotary = new Rotary( m_pInstrumentProp, Rotary::TYPE_NORMAL, trUtf8( "Random pitch factor" ), false, true );
-	m_pRandomPitchRotary->move( 117, 210 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pRandomPitchRotary->move( 406, 74 );
+    }
+    else
+    {
+        m_pRandomPitchRotary->move( 117, 210 );
+    }
 	connect( m_pRandomPitchRotary, SIGNAL( valueChanged(Rotary*) ), this, SLOT( rotaryChanged(Rotary*) ) );
 
 	// Filter
@@ -201,6 +230,10 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	m_pFilterBypassBtn->move( 70, 170 );
 	m_pCutoffRotary->move( 117, 164 );
 	m_pResonanceRotary->move( 170, 164 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) {
+        m_pCutoffRotary->move( 117, 165 );
+        m_pResonanceRotary->move( 170, 165 );
+    }
 	//~ Filter
 
 	// ADSR
@@ -218,6 +251,12 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	m_pDecayRotary->move( 105, 52 );
 	m_pSustainRotary->move( 157, 52 );
 	m_pReleaseRotary->move( 209, 52 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pAttackRotary->move( 53, 53 );
+        m_pDecayRotary->move( 105, 53 );
+        m_pSustainRotary->move( 157, 53 );
+        m_pReleaseRotary->move( 209, 53 );
+    }
 	//~ ADSR
 
 	// instrument gain
@@ -227,7 +266,7 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	connect( m_pInstrumentGain, SIGNAL( valueChanged(Rotary*) ), this, SLOT( rotaryChanged(Rotary*) ) );
 	m_pInstrumentGainLCD->move( 67, 105 );
 	m_pInstrumentGain->move( 117, 100 );
-
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pInstrumentGain->move( 117, 101 );
 
 	m_pMuteGroupLCD = new LCDDisplay( m_pInstrumentProp, LCDDigit::SMALL_BLUE, 4 );
 	m_pMuteGroupLCD->move( 160, 105 );
@@ -241,6 +280,8 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 							 );
 
 	m_pAddMuteGroupBtn->move( 202, 104 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_pAddMuteGroupBtn->move( 202, 105 );
 	connect( m_pAddMuteGroupBtn, SIGNAL( clicked(Button*) ), this, SLOT( muteGroupBtnClicked(Button*) ) );
 
 
@@ -252,15 +293,21 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 							 QSize(16,8)
 							 );
 	m_pDelMuteGroupBtn->move( 202, 113 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_pDelMuteGroupBtn->move( 202, 114 );
 	connect( m_pDelMuteGroupBtn, SIGNAL( clicked(Button*) ), this, SLOT( muteGroupBtnClicked(Button*) ) );
 
 	m_pIsStopNoteCheckBox = new QCheckBox ( trUtf8( "" ), m_pInstrumentProp );
-	m_pIsStopNoteCheckBox->move( 63, 138 );
+    m_pIsStopNoteCheckBox->move( 62, 137 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_pIsStopNoteCheckBox->move( 60, 135 );
 	m_pIsStopNoteCheckBox->setToolTip( trUtf8( "Stop the current playing instrument-note before trigger the next note sample." ) );
 	connect( m_pIsStopNoteCheckBox, SIGNAL( toggled( bool ) ), this, SLOT( onIsStopNoteCheckBoxClicked( bool ) ) );
 
 	m_pApplyVelocity = new QCheckBox ( trUtf8( "" ), m_pInstrumentProp );
 	m_pApplyVelocity->move( 153, 138 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_pApplyVelocity->move( 148, 135 );
 	m_pApplyVelocity->setToolTip( trUtf8( "Don't change the layers' gain based on velocity" ) );
 	connect( m_pApplyVelocity, SIGNAL( toggled( bool ) ), this, SLOT( onIsApplyVelocityCheckBoxClicked( bool ) ) );
 
@@ -269,6 +316,7 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 
 	m_pHihatGroupLCD = new LCDDisplay( m_pInstrumentProp, LCDDigit::SMALL_BLUE, 4 );
 	m_pHihatGroupLCD->move( 27, 307 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pHihatGroupLCD->move( 316, 171 );
 
 	m_pAddHihatGroupBtn = new Button(
 					m_pInstrumentProp,
@@ -278,6 +326,7 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 					QSize( 16, 8 )
 					);
 	m_pAddHihatGroupBtn->move( 69, 306 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pAddHihatGroupBtn->move( 358, 170 );
 	connect( m_pAddHihatGroupBtn, SIGNAL( clicked(Button*) ), this, SLOT( hihatGroupClicked(Button*) ) );
 
 	m_pDelHihatGroupBtn = new Button(
@@ -288,10 +337,12 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 					QSize(16,8)
 					);
 	m_pDelHihatGroupBtn->move( 69, 315 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pDelHihatGroupBtn->move( 358, 179 );
 	connect( m_pDelHihatGroupBtn, SIGNAL( clicked(Button*) ), this, SLOT( hihatGroupClicked(Button*) ) );
 
 	m_pHihatMinRangeLCD = new LCDDisplay( m_pInstrumentProp, LCDDigit::SMALL_BLUE, 4 );
 	m_pHihatMinRangeLCD->move( 137, 307 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pHihatMinRangeLCD->move( 426, 171 );
 
 	m_pAddHihatMinRangeBtn = new Button(
 								 m_pInstrumentProp,
@@ -303,6 +354,7 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 								 true
 								 );
 	m_pAddHihatMinRangeBtn->move( 179, 306 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pAddHihatMinRangeBtn->move( 468, 170 );
 	connect( m_pAddHihatMinRangeBtn, SIGNAL( clicked(Button*) ), this, SLOT( hihatMinRangeBtnClicked(Button*) ) );
 
 	m_pDelHihatMinRangeBtn = new Button(
@@ -315,11 +367,13 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 								 true
 								 );
 	m_pDelHihatMinRangeBtn->move( 179, 315 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pDelHihatMinRangeBtn->move( 468, 179 );
 	connect( m_pDelHihatMinRangeBtn, SIGNAL( clicked(Button*) ), this, SLOT( hihatMinRangeBtnClicked(Button*) ) );
 
 
 	m_pHihatMaxRangeLCD = new LCDDisplay( m_pInstrumentProp, LCDDigit::SMALL_BLUE, 4 );
 	m_pHihatMaxRangeLCD->move( 202, 307 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pHihatMaxRangeLCD->move( 491, 171 );
 
 	m_pAddHihatMaxRangeBtn = new Button(
 								 m_pInstrumentProp,
@@ -331,6 +385,7 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 								 true
 								 );
 	m_pAddHihatMaxRangeBtn->move( 244, 306 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pAddHihatMaxRangeBtn->move( 533, 170 );
 	connect( m_pAddHihatMaxRangeBtn, SIGNAL( clicked(Button*) ), this, SLOT( hihatMaxRangeBtnClicked(Button*) ) );
 
 	m_pDelHihatMaxRangeBtn = new Button(
@@ -343,6 +398,7 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 								 true
 								 );
 	m_pDelHihatMaxRangeBtn->move( 244, 315 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ) m_pDelHihatMaxRangeBtn->move( 533, 179 );
 	connect( m_pDelHihatMaxRangeBtn, SIGNAL( clicked(Button*) ), this, SLOT( hihatMaxRangeBtnClicked(Button*) ) );
 
 	//
@@ -359,7 +415,8 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	m_pLayerProp->move( 0, 31 );
 	m_pLayerProp->hide();
 	m_pLayerProp->setPixmap( "/instrumentEditor/layerTabsupernew.png" );
-
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_pLayerProp->setPixmap( "/instrumentEditor/layerTabsupernew_T.png" );
 	// Component
 	m_pCompoNameLbl = new ClickableLabel( m_pLayerProp );
 	m_pCompoNameLbl->setGeometry( 8, 5, 275, 28 );
@@ -393,8 +450,12 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	// Waveform display
 	m_pWaveDisplay = new WaveDisplay( m_pLayerProp );
 	m_pWaveDisplay->resize( 277, 58 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_pWaveDisplay->resize( 278, 68 );
 	m_pWaveDisplay->updateDisplay( NULL );
 	m_pWaveDisplay->move( 5, 241 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_pWaveDisplay->move( 295, 5 );
 	connect( m_pWaveDisplay, SIGNAL( doubleClicked(QWidget*) ), this, SLOT( waveDisplayDoubleClicked(QWidget*) ) );
 
 	m_pLoadLayerBtn = new Button(
@@ -420,14 +481,15 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 							 "/instrumentEditor/editLayer_over.png",
 							 QSize( 90, 13 )
 							 );
-	m_pLoadLayerBtn->move( 48, 267 );
-	m_pRemoveLayerBtn->move( 145, 267 );
-
-
 
 	m_pLoadLayerBtn->move( 6, 306 );
 	m_pRemoveLayerBtn->move( 99, 306 );
 	m_pSampleEditorBtn->move( 191, 306 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pLoadLayerBtn->move( 290 + 6, 81 );
+        m_pRemoveLayerBtn->move(290 + 99, 81 );
+        m_pSampleEditorBtn->move(290 + 191, 81 );
+    }
 
 	connect( m_pLoadLayerBtn, SIGNAL( clicked(Button*) ), this, SLOT( buttonClicked(Button*) ) );
 	connect( m_pRemoveLayerBtn, SIGNAL( clicked(Button*) ), this, SLOT( buttonClicked(Button*) ) );
@@ -458,19 +520,36 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 
 	m_pLayerGainLCD->move( 54, 341 + 3 );
 	m_pLayerGainRotary->move( 102, 341 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pLayerGainLCD->move( 344, 119 );
+        m_pLayerGainRotary->move( 392, 116 );
+    }
 
 	m_pCompoGainLCD->move( 151, 341 + 3 );
 	m_pCompoGainRotary->move( 199, 341 );
-
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pCompoGainLCD->move( 441, 119 );
+        m_pCompoGainRotary->move( 489, 116 );
+    }
 
 	m_pLayerPitchCoarseLCD->move( 54, 391 + 3 );
 	m_pLayerPitchCoarseRotary->move( 102, 391 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pLayerPitchCoarseLCD->move( 344, 169 );
+        m_pLayerPitchCoarseRotary->move( 392, 166 );
+    }
 
 	m_pLayerPitchFineLCD->move( 151, 391 + 3 );
 	m_pLayerPitchFineRotary->move( 199, 391 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED ){
+        m_pLayerPitchFineLCD->move( 441, 169 );
+        m_pLayerPitchFineRotary->move( 489, 166 );
+    }
 
 	m_sampleSelectionAlg = new LCDCombo(m_pLayerProp, 25);
-	m_sampleSelectionAlg->move( 60, 434 );
+    m_sampleSelectionAlg->move( 60, 434 );
+    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
+        m_sampleSelectionAlg->move( 350, 209 );
 	m_sampleSelectionAlg->setToolTip( trUtf8("Select pattern size") );
 	m_sampleSelectionAlg->addItem( QString( "First in Velocity" ) );
 	m_sampleSelectionAlg->addItem( QString( "Round Robin" ) );

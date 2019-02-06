@@ -60,10 +60,10 @@ InstrumentLine::InstrumentLine(QWidget* pParent)
 	, m_bIsSelected(false)
 {
 	int h = Preferences::get_instance()->getPatternEditorGridHeight();
-	setFixedSize(181, h);
+    setFixedSize(181, h);
 
 	m_pNameLbl = new QLabel(this);
-	m_pNameLbl->resize( 145, h );
+    m_pNameLbl->resize( 145, h );
 	m_pNameLbl->move( 10, 1 );
 	QFont nameFont;
 	nameFont.setPointSize( 10 );
@@ -77,7 +77,7 @@ InstrumentLine::InstrumentLine(QWidget* pParent)
 			"/mixerPanel/btn_mute_off.png",
 			QSize( 18, 13 )
 	);
-	m_pMuteBtn->move( 145, 5 );
+    m_pMuteBtn->move( 145, 5 );
 	m_pMuteBtn->setPressed(false);
 	m_pMuteBtn->setToolTip( trUtf8("Mute instrument") );
 	connect(m_pMuteBtn, SIGNAL(clicked(Button*)), this, SLOT(muteClicked()));
@@ -89,7 +89,7 @@ InstrumentLine::InstrumentLine(QWidget* pParent)
 			"/mixerPanel/btn_solo_off.png",
 			QSize( 18, 13 )
 	);
-	m_pSoloBtn->move( 163, 5 );
+    m_pSoloBtn->move( 163, 5 );
 	m_pSoloBtn->setPressed(false);
 	m_pSoloBtn->setToolTip( trUtf8("Solo") );
 	connect(m_pSoloBtn, SIGNAL(clicked(Button*)), this, SLOT(soloClicked()));
@@ -341,7 +341,7 @@ void InstrumentLine::functionFillNotes( int every )
 {
 	Hydrogen *pEngine = Hydrogen::get_instance();
 
-	PatternEditorPanel *pPatternEditorPanel = HydrogenApp::get_instance()->getPatternEditorPanel();
+    PatternEditorPanel *pPatternEditorPanel = HydrogenApp::get_instance()->getPatternEditorPanel();
 	DrumPatternEditor *pPatternEditor = pPatternEditorPanel->getDrumPatternEditor();
 	int nBase;
 	if ( pPatternEditor->isUsingTriplets() ) {
@@ -521,7 +521,7 @@ PatternEditorInstrumentList::PatternEditorInstrumentList( QWidget *parent, Patte
 
 	m_nGridHeight = Preferences::get_instance()->getPatternEditorGridHeight();
 
-	m_nEditorWidth = 181;
+    m_nEditorWidth = 181;
 	m_nEditorHeight = m_nGridHeight * MAX_INSTRUMENTS;
 
 	resize( m_nEditorWidth, m_nEditorHeight );
@@ -683,7 +683,7 @@ void PatternEditorInstrumentList::dropEvent(QDropEvent *event)
 				"X > 181": border between the instrument names on the left and the grid
 				Because the right part of the grid starts above the name column, we have to subtract the difference
 		*/
-		if (  event->pos().x() > 181 ) nTargetInstrument = ( event->pos().y() - 90 )  / m_nGridHeight ;
+        if (  event->pos().x() > 181 ) nTargetInstrument = ( event->pos().y() - 90 )  / m_nGridHeight ;
 
 		Hydrogen *engine = Hydrogen::get_instance();
 		if( nTargetInstrument > engine->getSong()->get_instrument_list()->size() ){

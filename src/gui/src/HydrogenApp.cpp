@@ -41,6 +41,7 @@
 
 #include "PatternEditor/PatternEditorPanel.h"
 #include "InstrumentEditor/InstrumentEditorPanel.h"
+#include "SoundLibrary/SoundLibraryPanel.h"
 #include "SongEditor/SongEditor.h"
 #include "SongEditor/SongEditorPanel.h"
 #include "SoundLibrary/SoundLibraryDatastructures.h"
@@ -180,7 +181,7 @@ void HydrogenApp::setupSinglePanedInterface()
 	m_pSplitter->setOrientation( Qt::Vertical );
 	m_pSplitter->setOpaqueResize( true );
 
-	m_pTab = new QTabWidget( NULL );
+    m_pTab = new QTabWidget( NULL );
 
 	// SONG EDITOR
 	if( uiLayout == Preferences::UI_LAYOUT_SINGLE_PANE)
@@ -195,28 +196,73 @@ void HydrogenApp::setupSinglePanedInterface()
 		m_pTab->addTab( m_pSongEditorPanel, trUtf8("Song Editor") );
 
 	// this HBox will contain the InstrumentRack and the Pattern editor
-	QWidget *pSouthPanel = new QWidget( m_pSplitter );
-	QHBoxLayout *pEditorHBox = new QHBoxLayout();
-	pEditorHBox->setSpacing( 5 );
-	pEditorHBox->setMargin( 0 );
-	pSouthPanel->setLayout( pEditorHBox );
+    QWidget *pSouthPanel = new QWidget( m_pSplitter );
+    QHBoxLayout *pEditorHBox = new QHBoxLayout();
+    QWidget *pNorthPanel = new QWidget( m_pSplitter );
+    QHBoxLayout *pEditorHBoxNorth = new QHBoxLayout();
 
-	// INSTRUMENT RACK
+    if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
+
+        pEditorHBox->setSpacing( 5 );
+        pEditorHBox->setMargin( 0 );
+        pSouthPanel->setLayout( pEditorHBox );
+
+        pEditorHBoxNorth->setSpacing( 5 );
+        pEditorHBoxNorth->setMargin( 0 );
+        pNorthPanel->setLayout( pEditorHBoxNorth );
+    }else
+    {
+        pEditorHBox->setSpacing( 5 );
+        pEditorHBox->setMargin( 0 );
+        pSouthPanel->setLayout( pEditorHBox );
+    }
+
+
+    // Pattern Editor
 	m_pInstrumentRack = new InstrumentRack( NULL );
+
+
+    // Split Soundlibrary Panel On Tabbed Interface
+    m_pSoundLibraryPanel = new SoundLibraryPanel( NULL, false );
+    m_pSoundLibraryPanel->setMaximumWidth(350);
 
 	if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
 		m_pTab->setMovable( false );
 		m_pTab->setTabsClosable( false );
-		m_pTab->addTab( pSouthPanel, trUtf8( "Instrument + Pattern") );
+        m_pTab->addTab( pSouthPanel, trUtf8( "Pattern + Sound Library") );
 	}
+
+    // INSTRUMENT RACK
+    if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
+        m_pTab->setMovable( false );
+        m_pTab->setTabsClosable( false );
+        m_pTab->addTab( pNorthPanel, trUtf8( "Instrument") );
+    }
+
+    // SOUNDLIBRARY RACK
+//    if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
+//        m_pTab->setMovable( false );
+//        m_pTab->setTabsClosable( false );
+//        m_pTab->addTab( m_pSoundLibraryPanel, trUtf8( "Sound Library") );
+//    }
 
 	// PATTERN EDITOR
 	m_pPatternEditorPanel = new PatternEditorPanel( NULL );
 	WindowProperties patternEditorProp = pPref->getPatternEditorProperties();
-	m_pPatternEditorPanel->resize( patternEditorProp.width, patternEditorProp.height );
+    m_pPatternEditorPanel->resize( patternEditorProp.width, patternEditorProp.height );
+    QRect rec = QApplication::desktop()->screenGeometry();
+    if( rec.width() < 1000 ) m_pPatternEditorPanel->setMaximumWidth(600);
 
-	pEditorHBox->addWidget( m_pPatternEditorPanel );
-	pEditorHBox->addWidget( m_pInstrumentRack );
+
+    if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
+        pEditorHBox->addWidget( m_pPatternEditorPanel );
+        pEditorHBox->addWidget( m_pSoundLibraryPanel );
+        pEditorHBoxNorth->addWidget( m_pInstrumentRack );
+    }else
+    {
+        pEditorHBox->addWidget( m_pPatternEditorPanel );
+        pEditorHBox->addWidget( m_pInstrumentRack );
+    }
 
 	// PLayer control
 	m_pPlayerControl = new PlayerControl( NULL );
