@@ -96,14 +96,14 @@ PatternEditorPanel::PatternEditorPanel( QWidget *pParent )
 	//soundlibrary name
 	pSLlabel = new QLabel( NULL );
 	pSLlabel->setText( Hydrogen::get_instance()->m_currentDrumkit );
-	pSLlabel->setFixedSize( 170, 20 );
+    pSLlabel->setFixedSize( 170, 20 );
 	pSLlabel->move( 10, 3 );
 	pSLlabel->setToolTip( trUtf8("Loaded Soundlibrary") );
 	editor_top_hbox->addWidget( pSLlabel ); 
 
 //wolke some background images back_size_res
 	PixmapWidget *pSizeResol = new PixmapWidget( NULL );
-	pSizeResol->setFixedSize( 200, 20 );
+    pSizeResol->setFixedSize( 200, 20 );
 	pSizeResol->setPixmap( "/patternEditor/background_res-new.png" );
 	pSizeResol->move( 0, 3 );
 	editor_top_hbox_2->addWidget( pSizeResol );
@@ -408,14 +408,14 @@ PatternEditorPanel::PatternEditorPanel( QWidget *pParent )
 	PixmapWidget *pPropertiesPanel = new PixmapWidget( NULL );
 	pPropertiesPanel->setColor( QColor( 58, 62, 72 ) );
 
-	pPropertiesPanel->setFixedSize( 181, 100 );
+    pPropertiesPanel->setFixedSize( 181, 100 );
 
 	QVBoxLayout *pPropertiesVBox = new QVBoxLayout( pPropertiesPanel );
 	pPropertiesVBox->setSpacing( 0 );
 	pPropertiesVBox->setMargin( 0 );
 
 
-	__pPropertiesCombo = new LCDCombo( NULL, 20);
+    __pPropertiesCombo = new LCDCombo( NULL, 20);
 	__pPropertiesCombo->setToolTip(trUtf8("Select note properties"));
 	__pPropertiesCombo->addItem( trUtf8("Velocity") );
 	__pPropertiesCombo->addItem( trUtf8("Pan") );

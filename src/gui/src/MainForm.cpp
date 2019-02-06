@@ -88,7 +88,7 @@ MainForm::MainForm( QApplication *app, const QString& songFilename )
 	: QMainWindow( 0, 0 )
 	, Object( __class_name )
 {
-	setMinimumSize( QSize( 1000, 500 ) );
+    setMinimumSize( QSize( 800, 380 ) );
 	setWindowIcon( QPixmap( Skin::getImagePath() + "/icon16.png" ) );
 
 #ifndef WIN32

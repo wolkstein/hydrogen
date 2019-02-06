@@ -52,7 +52,7 @@ NotePropertiesRuler::NotePropertiesRuler( QWidget *parent, PatternEditorPanel *p
 	//setAttribute(Qt::WA_NoBackground);
 
 	m_nGridWidth = (Preferences::get_instance())->getPatternEditorGridWidth();
-	m_nEditorWidth = 20 + m_nGridWidth * ( MAX_NOTES * 4 );
+    m_nEditorWidth = 20 + m_nGridWidth * ( MAX_NOTES * 4 );
 
 	if (m_mode == VELOCITY ) {
 		m_nEditorHeight = 100;
@@ -532,7 +532,7 @@ void NotePropertiesRuler::createVelocityBackground(QPixmap *pixmap)
 	if ( !pPatternEditor->isUsingTriplets() ) {
 
 		for (uint i = 0; i < nNotes + 1; i++) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
 
 			if ( (i % n4th) == 0 ) {
 				if (nResolution >= 4) {
@@ -571,7 +571,7 @@ void NotePropertiesRuler::createVelocityBackground(QPixmap *pixmap)
 		int nSize = 4 * MAX_NOTES / (nBase * nResolution);
 
 		for (uint i = 0; i < nNotes + 1; i++) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
 
 			if ( (i % nSize) == 0) {
 				if ((nCounter % 3) == 0) {
@@ -608,7 +608,7 @@ void NotePropertiesRuler::createVelocityBackground(QPixmap *pixmap)
 				if ( pNote->get_instrument() != pSong->get_instrument_list()->get( nSelectedInstrument ) ) {
 					continue;
 				}
-				uint x_pos = 20 + pos * m_nGridWidth;
+                uint x_pos = 20 + pos * m_nGridWidth;
 				uint line_end = height();
 				uint velocity = (uint)(pNote->get_velocity() * height());
 				uint line_start = line_end - velocity;
@@ -694,7 +694,7 @@ void NotePropertiesRuler::createPanBackground(QPixmap *pixmap)
 	if ( !pPatternEditor->isUsingTriplets() ) {
 
 		for (uint i = 0; i < nNotes +1 ; i++) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
 
 			if ( (i % n4th) == 0 ) {
 				if (nResolution >= 4) {
@@ -733,7 +733,7 @@ void NotePropertiesRuler::createPanBackground(QPixmap *pixmap)
 		int nSize = 4 * MAX_NOTES / (nBase * nResolution);
 
 		for (uint i = 0; i < nNotes +1; i++) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
 
 			if ( (i % nSize) == 0) {
 				if ((nCounter % 3) == 0) {
@@ -764,7 +764,7 @@ void NotePropertiesRuler::createPanBackground(QPixmap *pixmap)
 				if ( pNote->get_note_off() || pNote->get_instrument() != pSong->get_instrument_list()->get( nSelectedInstrument ) ) {
 					continue;
 				}
-				uint x_pos = 20 + pNote->get_position() * m_nGridWidth;
+                uint x_pos = 20 + pNote->get_position() * m_nGridWidth;
 				QColor centerColor = DrumPatternEditor::computeNoteColor( pNote->get_velocity() );
 				if (pNote->get_pan_r() == pNote->get_pan_l()) {
 					// pan value is centered - draw circle
@@ -854,7 +854,7 @@ void NotePropertiesRuler::createLeadLagBackground(QPixmap *pixmap)
 	if ( !pPatternEditor->isUsingTriplets() ) {
  
 		for (uint i = 0; i < nNotes + 1; i++) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
  
 			if ( (i % n4th) == 0 ) {
 				if (nResolution >= 4) {
@@ -893,7 +893,7 @@ void NotePropertiesRuler::createLeadLagBackground(QPixmap *pixmap)
 		int nSize = 4 * MAX_NOTES / (nBase * nResolution);
  
 		for (uint i = 0; i < nNotes + 1; i++) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
  
 			if ( (i % nSize) == 0) {
 				if ((nCounter % 3) == 0) {
@@ -925,7 +925,7 @@ void NotePropertiesRuler::createLeadLagBackground(QPixmap *pixmap)
 					continue;
 				}
 
-				uint x_pos = 20 + pNote->get_position() * m_nGridWidth;
+                uint x_pos = 20 + pNote->get_position() * m_nGridWidth;
 
 				int red1 = (int) (pNote->get_velocity() * 255);
 				int green1;
@@ -1044,7 +1044,7 @@ void NotePropertiesRuler::createNoteKeyBackground(QPixmap *pixmap)
 	if ( !pPatternEditor->isUsingTriplets() ) {
 
 		for (uint i = 0; i < nNotes + 1; i++) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
 
 			if ( (i % n4th) == 0 ) {
 				if (nResolution >= 4) {
@@ -1083,7 +1083,7 @@ void NotePropertiesRuler::createNoteKeyBackground(QPixmap *pixmap)
 		int nSize = 4 * MAX_NOTES / (nBase * nResolution);
 
 		for (uint i = 0; i < nNotes + 1; i++) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
 
 			if ( (i % nSize) == 0) {
 				if ((nCounter % 3) == 0) {
@@ -1179,7 +1179,7 @@ void NotePropertiesRuler::updateEditor()
 	// update editor width
 	int editorWidth;
 	if ( m_pPattern ) {
-		editorWidth = 20 + m_pPattern->get_length() * m_nGridWidth;
+        editorWidth = 20 + m_pPattern->get_length() * m_nGridWidth;
 	}
 	else {
 		editorWidth =  20 + MAX_NOTES * m_nGridWidth;

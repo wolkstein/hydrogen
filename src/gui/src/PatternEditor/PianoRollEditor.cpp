@@ -60,7 +60,7 @@ PianoRollEditor::PianoRollEditor( QWidget *pParent, PatternEditorPanel *panel )
 	setFocusPolicy(Qt::ClickFocus);
 	m_nGridWidth = Preferences::get_instance()->getPatternEditorGridWidth();
 
-	m_nEditorWidth = 20 + m_nGridWidth *  (MAX_NOTES * 4);
+    m_nEditorWidth = 20 + m_nGridWidth *  (MAX_NOTES * 4);
 	m_nEditorHeight = m_nOctaves * 12 * m_nRowHeight;
 
 	m_pBackground = new QPixmap( m_nEditorWidth, m_nEditorHeight );
@@ -93,10 +93,10 @@ void PianoRollEditor::updateEditor()
 {
 	//	uint nEditorWidth;
 	if ( m_pPattern ) {
-		m_nEditorWidth = 20 + m_nGridWidth * m_pPattern->get_length();
+        m_nEditorWidth = 20 + m_nGridWidth * m_pPattern->get_length();
 	}
 	else {
-		m_nEditorWidth = 20 + m_nGridWidth * MAX_NOTES;
+        m_nEditorWidth = 20 + m_nGridWidth * MAX_NOTES;
 	}
 	resize( m_nEditorWidth, height() );
 
@@ -315,7 +315,7 @@ void PianoRollEditor::draw_grid( QPainter& p )
 	}
 	if (!m_bUseTriplets) {
 		for ( int i = 0; i < nNotes + 1; i++ ) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
 
 			if ( (i % n4th) == 0 ) {
 				if (m_nResolution >= 4) {
@@ -354,7 +354,7 @@ void PianoRollEditor::draw_grid( QPainter& p )
 		int nSize = 4 * MAX_NOTES / (nBase * m_nResolution);
 
 		for ( int i = 0; i < nNotes + 1; i++ ) {
-			uint x = 20 + i * m_nGridWidth;
+            uint x = 20 + i * m_nGridWidth;
 
 			if ( (i % nSize) == 0) {
 				if ((nCounter % 3) == 0) {
@@ -422,7 +422,7 @@ void PianoRollEditor::drawNote( Note *pNote, QPainter *pPainter )
 		return;
 	}
 
-	uint start_x = 20 + pNote->get_position() * m_nGridWidth;
+    uint start_x = 20 + pNote->get_position() * m_nGridWidth;
 	uint start_y = height() - m_nRowHeight - ( m_nRowHeight * pNote->get_key() + ( 12 * (pNote->get_octave() +3) ) * m_nRowHeight ) + 1;
 	uint w = 8;
 	uint h = m_nRowHeight - 2;

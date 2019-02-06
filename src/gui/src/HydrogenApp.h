@@ -52,6 +52,7 @@ class LadspaFXProperties;
 class LadspaFXInfo;
 class LadspaFXGroup;
 class InstrumentRack;
+class SoundLibraryPanel;
 class PlaylistDialog;
 class SampleEditor;
 class Director;
@@ -132,12 +133,14 @@ class HydrogenApp : public QObject, public H2Core::Object
 		SimpleHTMLBrowser *m_pHelpBrowser;
 		SimpleHTMLBrowser *m_pFirstTimeInfo;
 		InstrumentRack* m_pInstrumentRack;
+        SoundLibraryPanel*          m_pSoundLibraryPanel;
 		PlayerControl *m_pPlayerControl;
 		PlaylistDialog *m_pPlaylistDialog;
 		SampleEditor *m_pSampleEditor;
 		Director *m_pDirector;
 		QTimer *m_pEventQueueTimer;
 		std::vector<EventListener*> m_eventListeners;
+		QTabWidget *				m_pTab;
 		QStringList temporaryFileList;
 
 		// implement EngineListener interface

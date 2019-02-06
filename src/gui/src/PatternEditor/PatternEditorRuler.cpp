@@ -55,7 +55,7 @@ PatternEditorRuler::PatternEditorRuler( QWidget* parent )
 	m_pPattern = NULL;
 	m_nGridWidth = Preferences::get_instance()->getPatternEditorGridWidth();
 
-	m_nRulerWidth = 20 + m_nGridWidth * ( MAX_NOTES * 4 );
+    m_nRulerWidth = 20 + m_nGridWidth * ( MAX_NOTES * 4 );
 	m_nRulerHeight = 25;
 
 	resize( m_nRulerWidth, m_nRulerHeight );
@@ -169,7 +169,7 @@ void PatternEditorRuler::paintEvent( QPaintEvent *ev)
 
 	// gray background for unusable section of pattern
 	if (m_pPattern) {
-		int nXStart = 20 + m_pPattern->get_length() * m_nGridWidth;
+        int nXStart = 20 + m_pPattern->get_length() * m_nGridWidth;
 		if ( (m_nRulerWidth - nXStart) != 0 ) {
 			painter.fillRect( nXStart, 0, m_nRulerWidth - nXStart, m_nRulerHeight, QColor(170,170,170) );
 		}
@@ -190,7 +190,7 @@ void PatternEditorRuler::paintEvent( QPaintEvent *ev)
 	uint nQuarter = 48;
 
 	for ( int i = 0; i < 64 ; i++ ) {
-		int nText_x = 20 + nQuarter / 4 * i * m_nGridWidth;
+        int nText_x = 20 + nQuarter / 4 * i * m_nGridWidth;
 		if ( ( i % 4 ) == 0 ) {
 			painter.setPen( textColor );
 			painter.drawText( nText_x - 30, 0, 60, m_nRulerHeight, Qt::AlignCenter, QString("%1").arg(i / 4 + 1) );
@@ -221,7 +221,7 @@ void PatternEditorRuler::zoomIn()
 	{
 		m_nGridWidth *= 1.5;
 	}
-	m_nRulerWidth = 20 + m_nGridWidth * ( MAX_NOTES * 4 );
+    m_nRulerWidth = 20 + m_nGridWidth * ( MAX_NOTES * 4 );
 	resize(  QSize(m_nRulerWidth, m_nRulerHeight ));
 	delete m_pBackground;
 	m_pBackground = new QPixmap( m_nRulerWidth, m_nRulerHeight );
@@ -241,7 +241,7 @@ void PatternEditorRuler::zoomOut()
 		{
 			m_nGridWidth /= 1.5;
 		}
-	m_nRulerWidth = 20 + m_nGridWidth * ( MAX_NOTES * 4 );
+    m_nRulerWidth = 20 + m_nGridWidth * ( MAX_NOTES * 4 );
 	resize( QSize(m_nRulerWidth, m_nRulerHeight) );
 	delete m_pBackground;
 	m_pBackground = new QPixmap( m_nRulerWidth, m_nRulerHeight );
