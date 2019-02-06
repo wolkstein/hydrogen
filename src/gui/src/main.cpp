@@ -71,6 +71,7 @@ static struct option long_opts[] = {
 	{"help", 0, NULL, 'h'},
 	{"install", required_argument, NULL, 'i'},
 	{"drumkit", required_argument, NULL, 'k'},
+	{"fullscreen", 0, NULL, 'f'},
 	{0, 0, 0, 0},
 };
 
@@ -185,6 +186,7 @@ int main(int argc, char *argv[])
 		QString drumkitName;
 		QString drumkitToLoad;
 		bool showHelpOpt = false;
+		bool bStartInFullscreen = false;
 
 		int c;
 		for (;;) {
@@ -195,54 +197,58 @@ int main(int argc, char *argv[])
 			switch(c) {
 			case 'P':
 				sys_data_path = QString::fromLocal8Bit(optarg);
+			break;
+			case 'd':
+				sSelectedDriver = QString::fromLocal8Bit(optarg);
 				break;
 
-				case 'd':
-					sSelectedDriver = QString::fromLocal8Bit(optarg);
-					break;
-
-				case 's':
-					songFilename = QString::fromLocal8Bit(optarg);
-					break;
+			case 's':
+				songFilename = QString::fromLocal8Bit(optarg);
+				break;
 #ifdef H2CORE_HAVE_JACKSESSION
 			case 'S':
 				sessionId = QString::fromLocal8Bit(optarg);
 				break;
 #endif
 
-				case 'p':
-					playlistFilename = QString::fromLocal8Bit(optarg);
-					break;
+			case 'p':
+				playlistFilename = QString::fromLocal8Bit(optarg);
+				break;
 
-				case 'k':
-					//load Drumkit
-					drumkitToLoad = QString::fromLocal8Bit(optarg);
-					break;
 
-				case 'v':
-					showVersionOpt = true;
-					break;
+			case 'k':
+				//load Drumkit
+				drumkitToLoad = QString::fromLocal8Bit(optarg);
+				break;
 
-				case 'i':
-					//install h2drumkit
-					drumkitName = QString::fromLocal8Bit( optarg );
-					break;
+			case 'v':
+				showVersionOpt = true;
+				break;
 
-				case 'V':
-					if( optarg ) {
-						logLevelOpt = H2Core::Logger::parse_log_level( optarg );
-					} else {
-						logLevelOpt = H2Core::Logger::Error|H2Core::Logger::Warning;
-					}
-					break;
-				case 'n':
-					bNoSplash = true;
-					break;
+			case 'i':
+				//install h2drumkit
+				drumkitName = QString::fromLocal8Bit( optarg );
+				break;
 
-				case 'h':
-				case '?':
-					showHelpOpt = true;
-					break;
+			case 'V':
+				if( optarg ) {
+					logLevelOpt = H2Core::Logger::parse_log_level( optarg );
+				} else {
+					logLevelOpt = H2Core::Logger::Error|H2Core::Logger::Warning;
+				}
+				break;
+			case 'n':
+				bNoSplash = true;
+				break;
+
+			case 'f':
+				bStartInFullscreen = true;
+				break;
+
+			case 'h':
+			case '?':
+				showHelpOpt = true;
+				break;
 			}
 		}
 
@@ -259,6 +265,7 @@ int main(int argc, char *argv[])
 		}
 
 		// Man your battle stations... this is not a drill.
+
 		H2Core::Logger::create_instance();
 		H2Core::Logger::set_bit_mask( logLevelOpt );
 		H2Core::Logger* logger = H2Core::Logger::get_instance();
@@ -302,6 +309,8 @@ int main(int argc, char *argv[])
 		else if ( sSelectedDriver == "alsa" ) {
 			pPref->m_sAudioDriver = "Alsa";
 		}
+
+		pPref->setStartInFullscreenMode(bStartInFullscreen);
 
 		QString family = pPref->getApplicationFontFamily();
 		pQApp->setFont( QFont( family, pPref->getApplicationFontPointSize() ) );
@@ -527,6 +536,7 @@ void showUsage()
 	std::cout << "   -V[Level], --verbose[=Level] - Print a lot of debugging info" << std::endl;
 	std::cout << "                 Level, if present, may be None, Error, Warning, Info, Debug or 0xHHHH" << std::endl;
 	std::cout << "   -v, --version - Show version info" << std::endl;
+	std::cout << "   -f, --fullscreen - start in fullscreen" << std::endl;
 	std::cout << "   -h, --help - Show this help message" << std::endl;
 }
 

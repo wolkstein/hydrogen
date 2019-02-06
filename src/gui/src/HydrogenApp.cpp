@@ -197,7 +197,6 @@ void HydrogenApp::setupSinglePanedInterface()
 	QWidget *pNorthPanel = new QWidget( pSplitter );
     QHBoxLayout *pEditorHBoxNorth = new QHBoxLayout();
 
-
     if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
 
         pEditorHBox->setSpacing( 5 );

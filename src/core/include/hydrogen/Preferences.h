@@ -412,6 +412,9 @@ public:
 
 	QString				getH2ProcessName();
 
+	bool				getStartInFullscreenMode() const;
+	void				setStartInFullscreenMode(bool val);
+
 private:
 	static Preferences *	__instance;
 
@@ -442,6 +445,8 @@ private:
 	int					punchOutPos;
 	int					maxBars;
 	bool				hearNewNotes;
+
+	bool m_startInFullscreenMode;
 
 	QStringList			m_recentFX;
 	std::vector<QString> m_recentFiles;
@@ -510,6 +515,15 @@ private:
 	void readUIStyle( QDomNode parent );
 };
 
+inline bool Preferences::getStartInFullscreenMode() const
+{
+	return m_startInFullscreenMode;
+}
+
+inline void Preferences::setStartInFullscreenMode(bool val)
+{
+	m_startInFullscreenMode = val;
+}
 
 inline const QString& Preferences::getDemoPath() {
 	return demoPath;
