@@ -412,8 +412,13 @@ void HydrogenApp::showPreferencesDialog()
 
 void HydrogenApp::setStatusBarMessage( const QString& msg, int msec )
 {
+	if(msg.length()>9){
+		setScrollStatusBarMessage( msg, 1500);
+		return;
+	}
 	getPlayerControl()->resetStatusLabel();
 	getPlayerControl()->showMessage( msg, msec );
+
 }
 
 void HydrogenApp::updateWindowTitle()
