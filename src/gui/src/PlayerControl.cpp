@@ -441,7 +441,7 @@ PlayerControl::PlayerControl(QWidget *parent)
 
 
 	PixmapWidget *pLcdBackGround = new PixmapWidget( NULL );
-	pLcdBackGround->setFixedSize( 256, 43 );
+	pLcdBackGround->setFixedSize( 102, 43 );
 	pLcdBackGround->setPixmap( "/playerControlPanel/lcd_background.png" );
 	hbox->addWidget( pLcdBackGround );
 
@@ -450,10 +450,10 @@ PlayerControl::PlayerControl(QWidget *parent)
 			"/skin_btn_on.png",
 			"/skin_btn_off.png",
 			"/skin_btn_over.png",
-			QSize( 80, 17 ),
+			QSize( 45, 17 ),
 			true
 	);
-	m_pShowMixerBtn->move( 7, 6 );
+	m_pShowMixerBtn->move( 5, 6 );
 	m_pShowMixerBtn->setToolTip( trUtf8( "Show mixer" ) );
 	m_pShowMixerBtn->setText( trUtf8( "Mixer" ) );
 	connect(m_pShowMixerBtn, SIGNAL(clicked(Button*)), this, SLOT(showButtonClicked(Button*)));
@@ -463,16 +463,16 @@ PlayerControl::PlayerControl(QWidget *parent)
 			"/skin_btn_on.png",
 			"/skin_btn_off.png",
 			"/skin_btn_over.png",
-			QSize( 160, 17 ),
+			QSize( 45, 17 ),
 			true
 	);
-	m_pShowInstrumentRackBtn->move( 88, 6 );
+	m_pShowInstrumentRackBtn->move( 51, 6 );
 	m_pShowInstrumentRackBtn->setToolTip( trUtf8( "Show Instrument Rack" ) );
-	m_pShowInstrumentRackBtn->setText( trUtf8( "Instrument rack" ) );
+	m_pShowInstrumentRackBtn->setText( trUtf8( "I. Rack" ) );
 	connect( m_pShowInstrumentRackBtn, SIGNAL( clicked(Button*) ), this, SLOT( showButtonClicked( Button*)) );
 
-	m_pStatusLabel = new LCDDisplay(pLcdBackGround , LCDDigit::SMALL_BLUE, 30, true );
-	m_pStatusLabel->move( 7, 25 );
+	m_pStatusLabel = new LCDDisplay(pLcdBackGround , LCDDigit::SMALL_BLUE, 11, true );
+	m_pStatusLabel->move( 5, 25 );
 
 
 	hbox->addStretch( 1000 );	// this must be the last widget in the HBOX!!
@@ -1070,6 +1070,10 @@ void PlayerControl::showButtonClicked( Button* pRef )
 
 void PlayerControl::showMessage( const QString& msg, int msec )
 {
+	if(msg.length()>9){
+		showScrollMessage( msg, 1500, true);
+		return;
+	}
 	if ( m_pScrollTimer->isActive ())
 		m_pScrollTimer->stop();
 	m_pStatusLabel->setText( msg );
