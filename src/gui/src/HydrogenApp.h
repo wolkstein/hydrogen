@@ -140,7 +140,6 @@ class HydrogenApp : public QObject, public H2Core::Object
 		Director *m_pDirector;
 		QTimer *m_pEventQueueTimer;
 		std::vector<EventListener*> m_eventListeners;
-		QTabWidget *				m_pTab;
 		QStringList temporaryFileList;
 
 		// implement EngineListener interface

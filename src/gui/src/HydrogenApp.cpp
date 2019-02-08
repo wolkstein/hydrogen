@@ -177,7 +177,7 @@ void HydrogenApp::setupSinglePanedInterface()
 	pSplitter->setOrientation( Qt::Vertical );
 	pSplitter->setOpaqueResize( true );
 
-	m_pTab = new QTabWidget( NULL );
+	pTab = new QTabWidget( NULL );
 
 	// SONG EDITOR
 	if( uiLayout == Preferences::UI_LAYOUT_SINGLE_PANE)
@@ -196,6 +196,7 @@ void HydrogenApp::setupSinglePanedInterface()
     QHBoxLayout *pEditorHBox = new QHBoxLayout();
 	QWidget *pNorthPanel = new QWidget( pSplitter );
     QHBoxLayout *pEditorHBoxNorth = new QHBoxLayout();
+
 
     if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
 
@@ -225,21 +226,21 @@ void HydrogenApp::setupSinglePanedInterface()
 	if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
 		pTab->setMovable( false );
 		pTab->setTabsClosable( false );
-		m_pTab->addTab( pSouthPanel, trUtf8( "Instrument + Pattern") );
+		pTab->addTab( pSouthPanel, trUtf8( "Instrument + Pattern") );
 	}
 
     // INSTRUMENT RACK
     if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
-        m_pTab->setMovable( false );
-        m_pTab->setTabsClosable( false );
-        m_pTab->addTab( pNorthPanel, trUtf8( "Instrument") );
+		pTab->setMovable( false );
+		pTab->setTabsClosable( false );
+		pTab->addTab( pNorthPanel, trUtf8( "Instrument") );
     }
 
     // SOUNDLIBRARY RACK
 //    if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
-//        m_pTab->setMovable( false );
-//        m_pTab->setTabsClosable( false );
-//        m_pTab->addTab( m_pSoundLibraryPanel, trUtf8( "Sound Library") );
+//        pTab->setMovable( false );
+//        pTab->setTabsClosable( false );
+//        pTab->addTab( m_pSoundLibraryPanel, trUtf8( "Sound Library") );
 //    }
 
 	// PATTERN EDITOR
