@@ -440,8 +440,6 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 
 	// Waveform display
 	m_pWaveDisplay = new WaveDisplay( m_pLayerProp );
-    if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
-        m_pWaveDisplay->resize( 278, 68 );
 	m_pWaveDisplay->updateDisplay( NULL );
 	m_pWaveDisplay->move( 5, 241 );
     if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
@@ -788,16 +786,16 @@ void InstrumentEditor::rotaryChanged(Rotary *ref)
 			m_pInstrument->set_filter_resonance( fVal );
 		}
 		else if ( ref == m_pAttackRotary ) {
-			m_pInstrument->get_adsr()->set_attack( fVal * fVal * 100000 );
+			m_pInstrument->get_adsr()->set_attack( float(fVal * fVal * 100000) );
 		}
 		else if ( ref == m_pDecayRotary ) {
-			m_pInstrument->get_adsr()->set_decay( fVal * fVal * 100000 );
+			m_pInstrument->get_adsr()->set_decay( float(fVal * fVal * 100000.0) );
 		}
 		else if ( ref == m_pSustainRotary ) {
 			m_pInstrument->get_adsr()->set_sustain( fVal );
 		}
 		else if ( ref == m_pReleaseRotary ) {
-			m_pInstrument->get_adsr()->set_release( 256.0 + fVal * fVal * 100000 );
+			m_pInstrument->get_adsr()->set_release( float(256.0 + fVal * fVal * 100000) );
 		}
 		else if ( ref == m_pLayerGainRotary ) {
 			fVal = fVal * 5.0;
