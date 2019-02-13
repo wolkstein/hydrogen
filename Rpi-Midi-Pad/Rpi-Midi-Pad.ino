@@ -16,19 +16,6 @@
 #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
 
-
-void setup() {
-  // put your setup code here, to run once:
-  pinMode(11, OUTPUT);
-  Serial.begin(56000); 
-  sbi(ADCSRA,ADPS2) ;
-  cbi(ADCSRA,ADPS1) ;
-  cbi(ADCSRA,ADPS0) ;
-
-  //EEPROM
-  loadConfig();
-}
-
 // settings
 #define CONFIG_VERSION "ls1"
 
@@ -60,10 +47,26 @@ int padSamplingState[8] = {0,0,0,0,0,0,0,0}; // 0 = note off,2 = sampling, 1 = w
 
 unsigned long noteOnTimecVal[8] = {0,0,0,0,0,0,0,0};
 
-
 int sampleLenghtInMSeconds = 3; // we sample 3ms to catch highest velocity
 
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(11, OUTPUT);
+  Serial.begin(56000); 
+  sbi(ADCSRA,ADPS2) ;
+  cbi(ADCSRA,ADPS1) ;
+  cbi(ADCSRA,ADPS0) ;
+
+  //EEPROM
+  loadConfig();
+  // ###### MIDI Receiving Messages
+  initMidiReceiving();
+}
+
+
 void loop() {
+  usbMIDI.read();
   unsigned long thisLooptime = millis();
   //Serial.printf("loop %i\n",thisLooptime);
   //Serial.printf("padstate %i\n",padSamplingState[0]);
