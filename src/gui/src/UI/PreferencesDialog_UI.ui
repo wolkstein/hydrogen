@@ -896,7 +896,7 @@
       <widget class="QFrame" name="frame">
        <property name="geometry">
         <rect>
-         <x>370</x>
+         <x>400</x>
          <y>0</y>
          <width>121</width>
          <height>111</height>
@@ -914,11 +914,11 @@
           <x>10</x>
           <y>10</y>
           <width>111</width>
-          <height>18</height>
+          <height>20</height>
          </rect>
         </property>
         <property name="text">
-         <string>Pad 1 -8 Sensing</string>
+         <string>Pad 1-8 Sensing</string>
         </property>
        </widget>
        <widget class="QSpinBox" name="PadSensingSpinBox">
@@ -941,7 +941,7 @@
       <widget class="QFrame" name="frame_2">
        <property name="geometry">
         <rect>
-         <x>70</x>
+         <x>110</x>
          <y>0</y>
          <width>291</width>
          <height>231</height>
@@ -1011,7 +1011,7 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>61</width>
+          <width>62</width>
           <height>101</height>
          </rect>
         </property>
@@ -1393,10 +1393,10 @@
       <widget class="QFrame" name="frame_3">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>10</x>
          <y>0</y>
-         <width>71</width>
-         <height>111</height>
+         <width>101</width>
+         <height>231</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -1408,7 +1408,7 @@
        <widget class="QLabel" name="label_86">
         <property name="geometry">
          <rect>
-          <x>0</x>
+          <x>30</x>
           <y>50</y>
           <width>61</width>
           <height>20</height>
@@ -1424,7 +1424,7 @@
        <widget class="QLabel" name="label_65">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>50</x>
           <y>80</y>
           <width>41</width>
           <height>20</height>
@@ -1440,7 +1440,7 @@
        <widget class="QLabel" name="label_85">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>50</x>
           <y>10</y>
           <width>41</width>
           <height>20</height>
@@ -1461,11 +1461,37 @@
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
+       <widget class="QPushButton" name="getConfigPushButton">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>81</width>
+          <height>34</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Get Config</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="writeConfigPushButton">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>81</width>
+          <height>34</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Write Config</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QFrame" name="frame_4">
        <property name="geometry">
         <rect>
-         <x>370</x>
+         <x>400</x>
          <y>120</y>
          <width>120</width>
          <height>111</height>

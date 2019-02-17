@@ -264,6 +264,30 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
 
 	m_bNeedDriverRestart = false;
 	connect(m_pMidiDriverComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT( onMidiDriverComboBoxIndexChanged(int) ));
+
+
+
+	//Rpi-Pi-Pad Tab
+	connect(getConfigPushButton, SIGNAL(clicked(bool)), this,SLOT(ongetConfigPuschButtonclicked(bool)) );
+	connect(writeConfigPushButton, SIGNAL(clicked(bool)), this,SLOT(onwriteConfigPuschButtonclicked(bool)) );
+
+	connect(tresholdSpinBox_1, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_1ValueChanged(int)));
+	connect(notespinBoxPad_1, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_1ValueChanged(int)));
+	connect(tresholdSpinBox_2, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_2ValueChanged(int)));
+	connect(notespinBoxPad_2, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_2ValueChanged(int)));
+	connect(tresholdSpinBox_3, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_3ValueChanged(int)));
+	connect(notespinBoxPad_3, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_3ValueChanged(int)));
+	connect(tresholdSpinBox_4, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_4ValueChanged(int)));
+	connect(notespinBoxPad_4, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_4ValueChanged(int)));
+	connect(tresholdSpinBox_5, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_5ValueChanged(int)));
+	connect(notespinBoxPad_5, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_5ValueChanged(int)));
+	connect(tresholdSpinBox_6, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_6ValueChanged(int)));
+	connect(notespinBoxPad_6, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_6ValueChanged(int)));
+	connect(tresholdSpinBox_7, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_7ValueChanged(int)));
+	connect(notespinBoxPad_7, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_7ValueChanged(int)));
+	connect(tresholdSpinBox_8, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_8ValueChanged(int)));
+	connect(notespinBoxPad_8, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_8ValueChanged(int)));
+
 }
 
 
@@ -735,3 +759,82 @@ void PreferencesDialog::toggleTrackOutsCheckBox(bool toggled)
 	Preferences::get_instance()->m_bJackTrackOuts = toggled;
 	m_bNeedDriverRestart = true;
 }
+
+//RPI-Pad
+
+void PreferencesDialog::ongetConfigPuschButtonclicked( bool ok){
+	qDebug() << "getConfig BTN clicked";
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,0,0);
+	midiOut->handleQueueNoteOff(0,119,0);
+	Preferences::get_instance()->setRpiConfigWaitforMidiMessages(true);
+}
+
+void PreferencesDialog::onwriteConfigPuschButtonclicked(bool ok){
+	qDebug() << "writeConfig BTN clicked";
+}
+
+void PreferencesDialog::ontresholdSpinBox_1ValueChanged(int index){
+
+}
+
+void PreferencesDialog::onnotespinBoxPad_1ValueChanged(int index){
+
+}
+
+void PreferencesDialog::ontresholdSpinBox_2ValueChanged(int index){
+
+}
+
+void PreferencesDialog::onnotespinBoxPad_2ValueChanged(int index){
+
+}
+
+void PreferencesDialog::ontresholdSpinBox_3ValueChanged(int index){
+
+}
+
+void PreferencesDialog::onnotespinBoxPad_3ValueChanged(int index){
+
+}
+
+void PreferencesDialog::ontresholdSpinBox_4ValueChanged(int index){
+
+}
+
+void PreferencesDialog::onnotespinBoxPad_4ValueChanged(int index){
+
+}
+
+void PreferencesDialog::ontresholdSpinBox_5ValueChanged(int index){
+
+}
+
+void PreferencesDialog::onnotespinBoxPad_5ValueChanged(int index){
+
+}
+
+void PreferencesDialog::ontresholdSpinBox_6ValueChanged(int index){
+
+}
+
+void PreferencesDialog::onnotespinBoxPad_6ValueChanged(int index){
+
+}
+
+void PreferencesDialog::ontresholdSpinBox_7ValueChanged(int index){
+
+}
+
+void PreferencesDialog::onnotespinBoxPad_7ValueChanged(int index){
+
+}
+
+void PreferencesDialog::ontresholdSpinBox_8ValueChanged(int index){
+
+}
+
+void PreferencesDialog::onnotespinBoxPad_8ValueChanged(int index){
+
+}
+

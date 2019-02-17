@@ -1288,11 +1288,15 @@ bool MainForm::eventFilter( QObject *o, QEvent *e )
 		//int songnumber = 0;
 		HydrogenApp* app = HydrogenApp::get_instance();
 		Hydrogen* engine = Hydrogen::get_instance();
+		qDebug()<< "input presseds"<< k->key();
 		switch (k->key()) {
 		case Qt::Key_Space:
 			onPlayStopAccelEvent();
 			return TRUE; // eat event
 
+		case 16777344:
+			onPlayStopAccelEvent();
+			return TRUE; // eat event
 
 		case Qt::Key_Comma:
 			engine->handleBeatCounter();
@@ -1315,6 +1319,11 @@ bool MainForm::eventFilter( QObject *o, QEvent *e )
 			break;
 
 		case Qt::Key_Backslash:
+			engine->onTapTempoAccelEvent();
+			return TRUE; // eat event
+			break;
+
+		case 16777457:
 			engine->onTapTempoAccelEvent();
 			return TRUE; // eat event
 			break;
