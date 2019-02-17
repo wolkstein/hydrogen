@@ -124,7 +124,8 @@ void MidiInput::handleMidiMessage( const MidiMessage& msg )
 				break;
 
 		case MidiMessage::PITCH_WHEEL:
-				ERRORLOG( "PITCH_WHEEL event not handled yet" );
+				INFOLOG( "PITCH_WHEEL event is experimental" );
+				handlePitchWeelMessage( msg );
 				break;
 
 		case MidiMessage::SYSTEM_EXCLUSIVE:
@@ -170,6 +171,26 @@ void MidiInput::handleMidiMessage( const MidiMessage& msg )
 		INFOLOG("[end of handleMidiMessage]");
 }
 
+
+void MidiInput::handlePitchWeelMessage( const MidiMessage& msg ){
+
+	int pitchbendValue = msg.m_nData1;
+
+	if(Preferences::get_instance()->getRpiConfigWaitforMidiMessages()){
+		if(pitchbendValue == 8190){
+			Preferences::get_instance()->setRpiConfigWaitforMidiMessages(false);
+			return;
+		}
+		// Wolke 2019
+		std::vector<int> rpiMidiSettings = Preferences::get_instance()->getRpiMidiSettings();
+		rpiMidiSettings.push_back( pitchbendValue );
+		Preferences::get_instance()->setRpiMidiSettings(rpiMidiSettings);
+		return;
+	}
+
+	return;
+}
+
 void MidiInput::handleControlChangeMessage( const MidiMessage& msg )
 {
 	//INFOLOG( QString( "[handleMidiMessage] CONTROL_CHANGE Parameter: %1, Value: %2" ).arg( msg.m_nData1 ).arg( msg.m_nData2 ) );
@@ -207,19 +228,7 @@ void MidiInput::handleProgramChangeMessage( const MidiMessage& msg )
 
 void MidiInput::handleNoteOnMessage( const MidiMessage& msg )
 {
-//	INFOLOG( "handleNoteOnMessage" );
-
-	if(Preferences::get_instance()->getRpiConfigWaitforMidiMessages()){
-		if(msg.m_nData1 == 100&& msg.m_nData2 == 1){
-			Preferences::get_instance()->setRpiConfigWaitforMidiMessages(false);
-			return;
-		}
-		// Wolke 2019
-		std::vector<int> rpiMidiSettings = Preferences::get_instance()->getRpiMidiSettings();
-		rpiMidiSettings.push_back( msg.m_nData2 );
-		Preferences::get_instance()->setRpiMidiSettings(rpiMidiSettings);
-		return;
-	}
+	//INFOLOG( "handleNoteOnMessage" );
 
 	int nNote = msg.m_nData1;
 	float fVelocity = msg.m_nData2 / 127.0;

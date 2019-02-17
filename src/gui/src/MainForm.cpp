@@ -1298,7 +1298,7 @@ bool MainForm::eventFilter( QObject *o, QEvent *e )
 		//int songnumber = 0;
 		HydrogenApp* app = HydrogenApp::get_instance();
 		Hydrogen* engine = Hydrogen::get_instance();
-		qDebug()<< "input presseds"<< k->key();
+		//qDebug()<< "input presseds"<< k->key();
 		switch (k->key()) {
 		case Qt::Key_Space:
 			onPlayStopAccelEvent();

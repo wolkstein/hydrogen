@@ -45,6 +45,8 @@ public:
 	virtual void handleQueueNote(Note* pNote) = 0;
 	virtual void handleQueueNoteOff( int channel, int key, int velocity ) = 0;
 	virtual void handleQueueAllNoteOff() = 0;
+	virtual void handlePitchBend( int channel, int pitch ) = 0;
+
 };
 
 };

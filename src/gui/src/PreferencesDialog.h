@@ -59,20 +59,35 @@ class PreferencesDialog : public QDialog, private Ui_PreferencesDialog_UI, publi
 		void onwriteConfigPuschButtonclicked(bool ok);
 
 		void ontresholdSpinBox_1ValueChanged(int index);
+		void onsensingSpinBox_1ValueChanged(int index);
 		void onnotespinBoxPad_1ValueChanged(int index);
+
 		void ontresholdSpinBox_2ValueChanged(int index);
+		void onsensingSpinBox_2ValueChanged(int index);
 		void onnotespinBoxPad_2ValueChanged(int index);
+
 		void ontresholdSpinBox_3ValueChanged(int index);
+		void onsensingSpinBox_3ValueChanged(int index);
 		void onnotespinBoxPad_3ValueChanged(int index);
+
 		void ontresholdSpinBox_4ValueChanged(int index);
+		void onsensingSpinBox_4ValueChanged(int index);
 		void onnotespinBoxPad_4ValueChanged(int index);
+
 		void ontresholdSpinBox_5ValueChanged(int index);
+		void onsensingSpinBox_5ValueChanged(int index);
 		void onnotespinBoxPad_5ValueChanged(int index);
+
 		void ontresholdSpinBox_6ValueChanged(int index);
+		void onsensingSpinBox_6ValueChanged(int index);
 		void onnotespinBoxPad_6ValueChanged(int index);
+
 		void ontresholdSpinBox_7ValueChanged(int index);
+		void onsensingSpinBox_7ValueChanged(int index);
 		void onnotespinBoxPad_7ValueChanged(int index);
+
 		void ontresholdSpinBox_8ValueChanged(int index);
+		void onsensingSpinBox_8ValueChanged(int index);
 		void onnotespinBoxPad_8ValueChanged(int index);
 
 		void updateMidiSettings();//timer based

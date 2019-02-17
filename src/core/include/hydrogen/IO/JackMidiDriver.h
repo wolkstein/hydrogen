@@ -63,6 +63,7 @@ public:
 		virtual void handleQueueNote(Note* pNote);
 		virtual void handleQueueNoteOff( int channel, int key, int velocity );
 		virtual void handleQueueAllNoteOff();
+		virtual void handlePitchBend( int channel, int pitch );
 
 private:
 	void JackMidiOutEvent(uint8_t *buf, uint8_t len);
