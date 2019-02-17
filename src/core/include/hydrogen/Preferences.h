@@ -388,6 +388,11 @@ public:
 	}
 	void setRecentFiles( std::vector<QString> recentFiles );
 
+	std::vector<int> getRpiMidiSettings();
+	void			 setRpiMidiSettings ( std::vector<int> m_RpiMidiSettings);
+	void			 clearRpiMidiSettings();
+
+
 	QStringList getRecentFX() {
 		return m_recentFX;
 	}
@@ -638,6 +643,7 @@ private:
 	std::vector<QString> m_recentFiles;
 	QStringList m_recentFX;
 	std::vector<QString> m_ladspaPathVect;
+	std::vector<int> m_RpiMidiSettings;
 	bool quantizeEvents;
 	bool recordEvents;
 	bool destructiveRecord;

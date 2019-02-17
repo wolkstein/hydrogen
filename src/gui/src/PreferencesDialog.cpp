@@ -268,6 +268,10 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
 
 
 	//Rpi-Pi-Pad Tab
+	m_midiSettinsUpdateTimer = new QTimer( this );
+	connect( m_midiSettinsUpdateTimer, SIGNAL( timeout() ), this, SLOT( updateMidiSettings() ) );
+
+
 	connect(getConfigPushButton, SIGNAL(clicked(bool)), this,SLOT(ongetConfigPuschButtonclicked(bool)) );
 	connect(writeConfigPushButton, SIGNAL(clicked(bool)), this,SLOT(onwriteConfigPuschButtonclicked(bool)) );
 
@@ -760,7 +764,7 @@ void PreferencesDialog::toggleTrackOutsCheckBox(bool toggled)
 	m_bNeedDriverRestart = true;
 }
 
-//RPI-Pad
+//RPI-Pad by Wolke 2019
 
 void PreferencesDialog::ongetConfigPuschButtonclicked( bool ok){
 	qDebug() << "getConfig BTN clicked";
@@ -768,6 +772,18 @@ void PreferencesDialog::ongetConfigPuschButtonclicked( bool ok){
 	midiOut->handleQueueNoteOff(0,0,0);
 	midiOut->handleQueueNoteOff(0,119,0);
 	Preferences::get_instance()->setRpiConfigWaitforMidiMessages(true);
+	m_midiSettinsUpdateTimer->start(1000);
+}
+
+void PreferencesDialog::updateMidiSettings(){
+	qDebug() << "updateMidiSettings time out";
+	m_midiSettinsUpdateTimer->stop();
+	//Read settings vector and fill the gui
+
+	//code here
+
+	// at least clear the vector
+	Preferences::get_instance()->clearRpiMidiSettings();
 }
 
 void PreferencesDialog::onwriteConfigPuschButtonclicked(bool ok){

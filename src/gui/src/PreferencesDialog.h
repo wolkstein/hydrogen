@@ -75,12 +75,16 @@ class PreferencesDialog : public QDialog, private Ui_PreferencesDialog_UI, publi
 		void ontresholdSpinBox_8ValueChanged(int index);
 		void onnotespinBoxPad_8ValueChanged(int index);
 
+		void updateMidiSettings();//timer based
+
 
 
 
 
 	private:
 		bool m_bNeedDriverRestart;
+
+		QTimer *m_midiSettinsUpdateTimer;
 
 		void updateDriverInfo();
 };
