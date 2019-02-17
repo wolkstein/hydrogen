@@ -224,6 +224,9 @@ public:
 	int					m_bJackMasterMode ;
 	//~ jack driver properties
 
+	// rpi pad
+	bool				m_rpiConfigWaitforMidiMessages;
+
 	///Default text editor (used by Playlisteditor)
 	QString				m_sDefaultEditor;
 
@@ -254,6 +257,10 @@ public:
 
 	void				setShowExportWarning( bool value );
 	bool				getShowExportWarning();
+
+	// rpi pad
+	void				setRpiConfigWaitforMidiMessages( bool value );
+	bool				getRpiConfigWaitforMidiMessages();
 
 
 	// General
@@ -560,6 +567,14 @@ inline bool Preferences::getShowExportWarning() {
 	return m_bShowExportWarning;
 }
 
+// rpi pad
+inline void	Preferences::setRpiConfigWaitforMidiMessages( bool value ){
+	m_rpiConfigWaitforMidiMessages = value;
+}
+
+inline bool Preferences::getRpiConfigWaitforMidiMessages(){
+	return m_rpiConfigWaitforMidiMessages;
+}
 
 // General
 inline void Preferences::setRestoreLastSongEnabled( bool restore ) {

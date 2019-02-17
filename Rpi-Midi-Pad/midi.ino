@@ -18,24 +18,26 @@ void OnControlChange(byte channel, byte control, byte value){
 }
 
 void OnNoteOn(byte channel, byte note, byte velocity){
-  messagecounter++;
   Serial.printf("Receive Midi Note On, NOTE: %d | VEL: %d\n",note, velocity );
-  if( note == pass[0]){
+
+  
+}
+  
+void OnNoteOff(byte channel, byte note, byte velocity){
+  Serial.printf("Receive Midi Note Off, NOTE: %d | VEL: %d\n",note, velocity );
+  messagecounter++;
+  if( note == pass[0] && velocity == 0){
     oldmessagecounter = messagecounter;
     passed[0] = true;
   }
-  if(passed[0] && oldmessagecounter + 1 == messagecounter){
+  if(passed[0] && note == pass[1] && velocity ==0 && oldmessagecounter + 1 == messagecounter){
     passed[1] = true;
   }
 
   if( passed[0] && passed[1]){
     Serial.println("send midi settings");
+    usbMIDI.sendAfterTouchPoly(1, 36, 1);
     passed[0] = false;
     passed[1] = false;
   }
-  
-}
-  
-void OnNoteOff(byte channel, byte note, byte velocity){
-  //Serial.printf("Receive Midi Note Off, NOTE: %d | VEL: %d\n",note, velocity ); 
 }

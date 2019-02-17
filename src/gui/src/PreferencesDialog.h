@@ -55,6 +55,25 @@ class PreferencesDialog : public QDialog, private Ui_PreferencesDialog_UI, publi
 		void onMidiDriverComboBoxIndexChanged( int index );
 		void toggleTrackOutsCheckBox(bool toggled);
 		void coloringMethodCombo_currentIndexChanged (int index);
+		void ongetConfigPuschButtonclicked(bool ok);
+		void onwriteConfigPuschButtonclicked(bool ok);
+
+		void ontresholdSpinBox_1ValueChanged(int index);
+		void onnotespinBoxPad_1ValueChanged(int index);
+		void ontresholdSpinBox_2ValueChanged(int index);
+		void onnotespinBoxPad_2ValueChanged(int index);
+		void ontresholdSpinBox_3ValueChanged(int index);
+		void onnotespinBoxPad_3ValueChanged(int index);
+		void ontresholdSpinBox_4ValueChanged(int index);
+		void onnotespinBoxPad_4ValueChanged(int index);
+		void ontresholdSpinBox_5ValueChanged(int index);
+		void onnotespinBoxPad_5ValueChanged(int index);
+		void ontresholdSpinBox_6ValueChanged(int index);
+		void onnotespinBoxPad_6ValueChanged(int index);
+		void ontresholdSpinBox_7ValueChanged(int index);
+		void onnotespinBoxPad_7ValueChanged(int index);
+		void ontresholdSpinBox_8ValueChanged(int index);
+		void onnotespinBoxPad_8ValueChanged(int index);
 
 
 	private:

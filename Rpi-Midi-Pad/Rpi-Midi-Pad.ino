@@ -17,10 +17,11 @@
 #endif
 
 // settings
-#define CONFIG_VERSION "ls1"
+#define CONFIG_VERSION "R_3"
 
 struct StoreSettingsStruct {
   // The variables of your settings
+  int midichannel;
   int piezoSensing;
   int padRetriggerWait;
   int controlerloockup[8];
@@ -32,10 +33,11 @@ struct StoreSettingsStruct {
   // they are stored completely.
 } settings = {
   // The default settings
-  200,                         // piezoSensing
-  50,                          // padRetriggerWait
+  1,                           // midichannel
+  250,                         // piezoSensing
+  70,                          // padRetriggerWait
   {36,37,38,39,39,40,41,36},   // controlerloockup[8]
-  {40,40,40,40,40,40,40,40},   // padthreshold[8];
+  {40,40,40,40,40,40,40,25},   // padthreshold[8];
   CONFIG_VERSION
 };
 
@@ -53,7 +55,7 @@ int sampleLenghtInMSeconds = 3; // we sample 3ms to catch highest velocity
 void setup() {
   // put your setup code here, to run once:
   pinMode(11, OUTPUT);
-  Serial.begin(56000); 
+  Serial.begin(9600); 
   sbi(ADCSRA,ADPS2) ;
   cbi(ADCSRA,ADPS1) ;
   cbi(ADCSRA,ADPS0) ;
@@ -75,7 +77,8 @@ void loop() {
     cVal[i] = analogRead(i);
     if(i<7) cVal[i] = 0; // nicht angeschlossene pads floaten rum
   }
-  //Serial.println(cVal[7]);
+
+  //Serial.printf("pad 7 %i\n",cVal[7]);
   // find firdt trigger moment from pad
   for(int i = 0;i<8;i++){
     if(cVal[i] > settings.padthreshold[i] && padSamplingState[i] < 1){
@@ -96,7 +99,7 @@ void loop() {
         //Serial.printf("End Sampling on Sample pad %i state 1 hw = %i\n",i,hoester_wert[i]);
         // nun können wir midi feuern
         if(hoester_wert[i] > settings.piezoSensing) hoester_wert[i] = settings.piezoSensing;
-        usbMIDI.sendNoteOn( settings.controlerloockup[i], map(hoester_wert[i], settings.padthreshold[i], settings.piezoSensing, 1, 127), 10);
+        usbMIDI.sendNoteOn( settings.controlerloockup[i], map(hoester_wert[i], settings.padthreshold[i], settings.piezoSensing, 1, 127), settings.midichannel);
         hoester_wert[i] = 0;
         digitalWrite(11,HIGH);
         
