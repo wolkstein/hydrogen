@@ -18,7 +18,11 @@
 
 // settings
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define CONFIG_VERSION "R_2"
+=======
+#define CONFIG_VERSION "R_3"
+>>>>>>> d7fa066... add rpi keyevents
 =======
 #define CONFIG_VERSION "R_3"
 >>>>>>> d7fa066... add rpi keyevents
@@ -27,8 +31,11 @@ struct StoreSettingsStruct {
   // The variables of your settings
   int midichannel;
 <<<<<<< HEAD
+<<<<<<< HEAD
   int piezoSensing[8];
 =======
+=======
+>>>>>>> d7fa066... add rpi keyevents
   int piezoSensing;
 >>>>>>> d7fa066... add rpi keyevents
   int padRetriggerWait;
@@ -43,15 +50,21 @@ struct StoreSettingsStruct {
   // The default settings
   1,                           // midichannel
 <<<<<<< HEAD
+<<<<<<< HEAD
   {251,252,253,254,255,256,257,258},   // piezoSensing
   69,                          // padRetriggerWait
   {36,37,38,39,40,41,42,43},   // controlerloockup[8]
   {21,22,23,24,25,26,27,28},   // padthreshold[8];
 =======
+=======
+>>>>>>> d7fa066... add rpi keyevents
   250,                         // piezoSensing
   70,                          // padRetriggerWait
   {36,37,38,39,39,40,41,36},   // controlerloockup[8]
   {40,40,40,40,40,40,40,25},   // padthreshold[8];
+<<<<<<< HEAD
+>>>>>>> d7fa066... add rpi keyevents
+=======
 >>>>>>> d7fa066... add rpi keyevents
   CONFIG_VERSION
 };
@@ -119,6 +132,9 @@ void loop() {
 =======
         if(hoester_wert[i] > settings.piezoSensing) hoester_wert[i] = settings.piezoSensing;
         usbMIDI.sendNoteOn( settings.controlerloockup[i], map(hoester_wert[i], settings.padthreshold[i], settings.piezoSensing, 1, 127), settings.midichannel);
+<<<<<<< HEAD
+>>>>>>> d7fa066... add rpi keyevents
+=======
 >>>>>>> d7fa066... add rpi keyevents
         hoester_wert[i] = 0;
         digitalWrite(11,HIGH);

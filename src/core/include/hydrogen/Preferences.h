@@ -235,6 +235,9 @@ public:
 	// rpi pad
 	bool				m_rpiConfigWaitforMidiMessages;
 
+<<<<<<< HEAD
+>>>>>>> d7fa066... add rpi keyevents
+=======
 >>>>>>> d7fa066... add rpi keyevents
 	///Default text editor (used by Playlisteditor)
 	QString m_sDefaultEditor;
@@ -288,6 +291,10 @@ public:
 	bool getShowExportWarning() {
 		return m_bShowExportWarning;
 	}
+
+	// rpi pad
+	void				setRpiConfigWaitforMidiMessages( bool value );
+	bool				getRpiConfigWaitforMidiMessages();
 
 	// rpi pad
 	void				setRpiConfigWaitforMidiMessages( bool value );

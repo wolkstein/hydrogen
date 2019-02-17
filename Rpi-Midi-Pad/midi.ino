@@ -28,7 +28,11 @@ void OnControlChange(byte channel, byte control, byte value){
 
 void OnNoteOn(byte channel, byte note, byte velocity){
 <<<<<<< HEAD
+<<<<<<< HEAD
   //Serial.printf("Receive Midi Note On, NOTE: %d | VEL: %d\n",note, velocity );
+=======
+  Serial.printf("Receive Midi Note On, NOTE: %d | VEL: %d\n",note, velocity );
+>>>>>>> d7fa066... add rpi keyevents
 =======
   Serial.printf("Receive Midi Note On, NOTE: %d | VEL: %d\n",note, velocity );
 >>>>>>> d7fa066... add rpi keyevents
@@ -38,12 +42,17 @@ void OnNoteOn(byte channel, byte note, byte velocity){
   
 void OnNoteOff(byte channel, byte note, byte velocity){
 <<<<<<< HEAD
+<<<<<<< HEAD
   //Serial.printf("Receive Midi Note Off, NOTE: %d | VEL: %d\n",note, velocity );
 
   // midi settings question
   messagecounter++;
   n_messagecounter++;
   
+=======
+  Serial.printf("Receive Midi Note Off, NOTE: %d | VEL: %d\n",note, velocity );
+  messagecounter++;
+>>>>>>> d7fa066... add rpi keyevents
 =======
   Serial.printf("Receive Midi Note Off, NOTE: %d | VEL: %d\n",note, velocity );
   messagecounter++;
@@ -57,6 +66,7 @@ void OnNoteOff(byte channel, byte note, byte velocity){
   }
 
   if( passed[0] && passed[1]){
+<<<<<<< HEAD
 <<<<<<< HEAD
     //Serial.println("send midi settings");
     for(int i = 0 ; i<8;i++){
@@ -135,6 +145,13 @@ void OnPitchBend(byte channel, int pitch){
     n_passed[1] = false;
     info_for_next_settings_value = 1000;
   }   
+=======
+    Serial.println("send midi settings");
+    usbMIDI.sendAfterTouchPoly(1, 36, 1);
+    passed[0] = false;
+    passed[1] = false;
+  }
+>>>>>>> d7fa066... add rpi keyevents
 =======
     Serial.println("send midi settings");
     usbMIDI.sendAfterTouchPoly(1, 36, 1);
