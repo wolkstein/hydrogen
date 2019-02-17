@@ -305,6 +305,10 @@ public:
 	std::vector<QString> getRecentFiles();
 	void				setRecentFiles( std::vector<QString> recentFiles );
 
+	std::vector<int> getRpiMidiSettings();
+	void			 setRpiMidiSettings ( std::vector<int> m_RpiMidiSettings);
+	void			 clearRpiMidiSettings();
+
 	QStringList			getRecentFX();
 	void				setMostRecentFX( QString );
 
@@ -458,6 +462,8 @@ private:
 	QStringList			m_recentFX;
 	std::vector<QString> m_recentFiles;
 	std::vector<QString> m_ladspaPathVect;
+
+	std::vector<int> m_RpiMidiSettings;
 
 #ifdef H2CORE_HAVE_JACKSESSION
 		QString			jackSessionUUID;
@@ -682,6 +688,10 @@ inline bool Preferences::getQuantizeEvents() {
 
 inline std::vector<QString> Preferences::getRecentFiles() {
 	return m_recentFiles;
+}
+
+inline std::vector<int> Preferences::getRpiMidiSettings(){
+	return m_RpiMidiSettings;
 }
 
 inline QStringList Preferences::getRecentFX() {

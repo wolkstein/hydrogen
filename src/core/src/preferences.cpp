@@ -1161,7 +1161,13 @@ void Preferences::setRecentFiles( std::vector<QString> recentFiles )
 	m_recentFiles = temp;
 }
 
+void Preferences::setRpiMidiSettings( std::vector<int> midisettings){
+	m_RpiMidiSettings = midisettings;
+}
 
+void Preferences::clearRpiMidiSettings(){
+	m_RpiMidiSettings.clear();
+}
 
 /// Read the xml nodes related to window properties
 WindowProperties Preferences::readWindowProperties( QDomNode parent, const QString& windowName, WindowProperties defaultProp )
