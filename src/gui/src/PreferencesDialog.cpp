@@ -331,6 +331,8 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
 	connect(sensingSpinBox_8, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_8ValueChanged(int)));
 	connect(notespinBoxPad_8, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_8ValueChanged(int)));
 
+	connect(PadRetriggerSpinBox, SIGNAL(valueChanged(int)), this, SLOT(onPadRetriggerSpinBoxValueChanged(int)));
+
 }
 
 
@@ -920,86 +922,168 @@ void PreferencesDialog::updateMidiSettings(){
 
 void PreferencesDialog::onwriteConfigPuschButtonclicked(bool ok){
 	qDebug() << "writeConfig BTN clicked";
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,26);
+	midiOut->handlePitchBend(0,0);
 }
 
 
 void PreferencesDialog::ontresholdSpinBox_1ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,1);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onsensingSpinBox_1ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,2);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onnotespinBoxPad_1ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,3);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_2ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,4);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onsensingSpinBox_2ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,5);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onnotespinBoxPad_2ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,6);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_3ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,7);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onsensingSpinBox_3ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,8);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onnotespinBoxPad_3ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,9);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_4ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,10);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onsensingSpinBox_4ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,11);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onnotespinBoxPad_4ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,12);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_5ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,13);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onsensingSpinBox_5ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,14);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onnotespinBoxPad_5ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,15);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_6ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,16);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onsensingSpinBox_6ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,17);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onnotespinBoxPad_6ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,18);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_7ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,19);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onsensingSpinBox_7ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,20);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onnotespinBoxPad_7ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,21);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_8ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,22);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onsensingSpinBox_8ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,23);
+	midiOut->handlePitchBend(0,index);
 }
 void PreferencesDialog::onnotespinBoxPad_8ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,24);
+	midiOut->handlePitchBend(0,index);
 }
 
+void PreferencesDialog::onPadRetriggerSpinBoxValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,25);
+	midiOut->handlePitchBend(0,index);
+}

@@ -90,6 +90,8 @@ class PreferencesDialog : public QDialog, private Ui_PreferencesDialog_UI, publi
 		void onsensingSpinBox_8ValueChanged(int index);
 		void onnotespinBoxPad_8ValueChanged(int index);
 
+		void onPadRetriggerSpinBoxValueChanged(int index);
+
 		void updateMidiSettings();//timer based
 
 
