@@ -227,7 +227,6 @@ void AlsaMidiDriver::midi_action( snd_seq_t *seq_handle )
 		if ( m_bActive ) {
 
 			MidiMessage msg;
-
 			switch ( ev->type ) {
 			case SND_SEQ_EVENT_NOTEON:
 				msg.m_type = MidiMessage::NOTE_ON;
@@ -290,6 +289,8 @@ void AlsaMidiDriver::midi_action( snd_seq_t *seq_handle )
 				break;
 
 			case SND_SEQ_EVENT_PITCHBEND:
+				msg.m_type = MidiMessage::PITCH_WHEEL;
+				msg.m_nData1 = ev->data.control.value;
 				break;
 
 			case SND_SEQ_EVENT_PGMCHANGE:
@@ -523,9 +524,26 @@ void AlsaMidiDriver::handleQueueAllNoteOff()
 			snd_seq_ev_set_subs(&ev);
 			snd_seq_ev_set_direct(&ev);
 		snd_seq_ev_set_noteoff(&ev, channel, key, 0);
+
 		snd_seq_event_output(seq_handle, &ev);
 		snd_seq_drain_output(seq_handle);
 	}
+}
+
+void AlsaMidiDriver::handlePitchBend(int channel, int pitch){
+	if ( seq_handle == NULL ) {
+		ERRORLOG( "seq_handle = NULL " );
+		return;
+	}
+	snd_seq_event_t ev;
+	snd_seq_ev_clear(&ev);
+		snd_seq_ev_set_source(&ev, outPortId);
+		snd_seq_ev_set_subs(&ev);
+		snd_seq_ev_set_direct(&ev);
+	snd_seq_ev_set_pitchbend(&ev, channel, pitch);
+
+	snd_seq_event_output(seq_handle, &ev);
+	snd_seq_drain_output(seq_handle);
 }
 
 };

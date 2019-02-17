@@ -276,21 +276,38 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
 	connect(writeConfigPushButton, SIGNAL(clicked(bool)), this,SLOT(onwriteConfigPuschButtonclicked(bool)) );
 
 	connect(tresholdSpinBox_1, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_1ValueChanged(int)));
+	connect(sensingSpinBox_1, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_1ValueChanged(int)));
 	connect(notespinBoxPad_1, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_1ValueChanged(int)));
+
 	connect(tresholdSpinBox_2, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_2ValueChanged(int)));
+	connect(sensingSpinBox_2, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_2ValueChanged(int)));
 	connect(notespinBoxPad_2, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_2ValueChanged(int)));
+
 	connect(tresholdSpinBox_3, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_3ValueChanged(int)));
+	connect(sensingSpinBox_3, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_3ValueChanged(int)));
 	connect(notespinBoxPad_3, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_3ValueChanged(int)));
+
 	connect(tresholdSpinBox_4, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_4ValueChanged(int)));
+	connect(sensingSpinBox_4, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_4ValueChanged(int)));
 	connect(notespinBoxPad_4, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_4ValueChanged(int)));
+
 	connect(tresholdSpinBox_5, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_5ValueChanged(int)));
+	connect(sensingSpinBox_5, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_5ValueChanged(int)));
 	connect(notespinBoxPad_5, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_5ValueChanged(int)));
+
 	connect(tresholdSpinBox_6, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_6ValueChanged(int)));
+	connect(sensingSpinBox_6, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_6ValueChanged(int)));
 	connect(notespinBoxPad_6, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_6ValueChanged(int)));
+
 	connect(tresholdSpinBox_7, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_7ValueChanged(int)));
+	connect(sensingSpinBox_7, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_7ValueChanged(int)));
 	connect(notespinBoxPad_7, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_7ValueChanged(int)));
+
 	connect(tresholdSpinBox_8, SIGNAL(valueChanged(int)), this, SLOT(ontresholdSpinBox_8ValueChanged(int)));
+	connect(sensingSpinBox_8, SIGNAL(valueChanged(int)), this, SLOT(onsensingSpinBox_8ValueChanged(int)));
 	connect(notespinBoxPad_8, SIGNAL(valueChanged(int)), this, SLOT(onnotespinBoxPad_8ValueChanged(int)));
+
+	connect(PadRetriggerSpinBox, SIGNAL(valueChanged(int)), this, SLOT(onPadRetriggerSpinBoxValueChanged(int)));
 
 }
 
@@ -775,82 +792,233 @@ void PreferencesDialog::ongetConfigPuschButtonclicked( bool ok){
 	m_midiSettinsUpdateTimer->start(1000);
 }
 
+
 void PreferencesDialog::updateMidiSettings(){
 	qDebug() << "updateMidiSettings time out";
 	m_midiSettinsUpdateTimer->stop();
 	//Read settings vector and fill the gui
-
 	//code here
+	std::vector<int> rpiMidiSettings = Preferences::get_instance()->getRpiMidiSettings();
+
+	int p = 0;
+
+	qDebug()<< rpiMidiSettings.size();
+	return;
+
+	if(rpiMidiSettings.size() > 0){
+		for(int in : rpiMidiSettings ){
+			//qDebug() << in << "at:" << p;
+			if(p==0) this->tresholdSpinBox_1->setValue( in );
+			if(p==1) this->sensingSpinBox_1->setValue( in );
+			if(p==2) this->notespinBoxPad_1->setValue( in );
+
+			if(p==3) this->tresholdSpinBox_2->setValue( in );
+			if(p==4) this->sensingSpinBox_2->setValue( in );
+			if(p==5) this->notespinBoxPad_2->setValue( in );
+
+			if(p==6) this->tresholdSpinBox_3->setValue( in );
+			if(p==7) this->sensingSpinBox_3->setValue( in );
+			if(p==8) this->notespinBoxPad_3->setValue( in );
+
+			if(p==9) this->tresholdSpinBox_4->setValue( in );
+			if(p==10) this->sensingSpinBox_4->setValue( in );
+			if(p==11) this->notespinBoxPad_4->setValue( in );
+
+			if(p==12) this->tresholdSpinBox_5->setValue( in );
+			if(p==13) this->sensingSpinBox_5->setValue( in );
+			if(p==14) this->notespinBoxPad_5->setValue( in );
+
+			if(p==15) this->tresholdSpinBox_6->setValue( in );
+			if(p==16) this->sensingSpinBox_6->setValue( in );
+			if(p==17) this->notespinBoxPad_6->setValue( in );
+
+			if(p==18) this->tresholdSpinBox_7->setValue( in );
+			if(p==19) this->sensingSpinBox_7->setValue( in );
+			if(p==20) this->notespinBoxPad_7->setValue( in );
+
+			if(p==21) this->tresholdSpinBox_8->setValue( in );
+			if(p==22) this->sensingSpinBox_8->setValue( in );
+			if(p==23) this->notespinBoxPad_8->setValue( in );
+
+			//if(p==24) midichannel
+			if(p==25) this->PadRetriggerSpinBox->setValue( in );
+
+			p++;
+		}
+	}
 
 	// at least clear the vector
+
 	Preferences::get_instance()->clearRpiMidiSettings();
 }
 
+
+
 void PreferencesDialog::onwriteConfigPuschButtonclicked(bool ok){
 	qDebug() << "writeConfig BTN clicked";
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,26);
+	midiOut->handlePitchBend(0,0);
 }
+
 
 void PreferencesDialog::ontresholdSpinBox_1ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,1);
+	midiOut->handlePitchBend(0,index);
 }
-
+void PreferencesDialog::onsensingSpinBox_1ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,2);
+	midiOut->handlePitchBend(0,index);
+}
 void PreferencesDialog::onnotespinBoxPad_1ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,3);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_2ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,4);
+	midiOut->handlePitchBend(0,index);
 }
-
+void PreferencesDialog::onsensingSpinBox_2ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,5);
+	midiOut->handlePitchBend(0,index);
+}
 void PreferencesDialog::onnotespinBoxPad_2ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,6);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_3ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,7);
+	midiOut->handlePitchBend(0,index);
 }
-
+void PreferencesDialog::onsensingSpinBox_3ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,8);
+	midiOut->handlePitchBend(0,index);
+}
 void PreferencesDialog::onnotespinBoxPad_3ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,9);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_4ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,10);
+	midiOut->handlePitchBend(0,index);
 }
-
+void PreferencesDialog::onsensingSpinBox_4ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,11);
+	midiOut->handlePitchBend(0,index);
+}
 void PreferencesDialog::onnotespinBoxPad_4ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,12);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_5ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,13);
+	midiOut->handlePitchBend(0,index);
 }
-
+void PreferencesDialog::onsensingSpinBox_5ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,14);
+	midiOut->handlePitchBend(0,index);
+}
 void PreferencesDialog::onnotespinBoxPad_5ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,15);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_6ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,16);
+	midiOut->handlePitchBend(0,index);
 }
-
+void PreferencesDialog::onsensingSpinBox_6ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,17);
+	midiOut->handlePitchBend(0,index);
+}
 void PreferencesDialog::onnotespinBoxPad_6ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,18);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_7ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,19);
+	midiOut->handlePitchBend(0,index);
 }
-
+void PreferencesDialog::onsensingSpinBox_7ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,20);
+	midiOut->handlePitchBend(0,index);
+}
 void PreferencesDialog::onnotespinBoxPad_7ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,21);
+	midiOut->handlePitchBend(0,index);
 }
 
 void PreferencesDialog::ontresholdSpinBox_8ValueChanged(int index){
-
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,22);
+	midiOut->handlePitchBend(0,index);
+}
+void PreferencesDialog::onsensingSpinBox_8ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,23);
+	midiOut->handlePitchBend(0,index);
+}
+void PreferencesDialog::onnotespinBoxPad_8ValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,24);
+	midiOut->handlePitchBend(0,index);
 }
 
-void PreferencesDialog::onnotespinBoxPad_8ValueChanged(int index){
-
+void PreferencesDialog::onPadRetriggerSpinBoxValueChanged(int index){
+	MidiOutput* midiOut = Hydrogen::get_instance()->getMidiOutput();
+	midiOut->handleQueueNoteOff(0,1,0);
+	midiOut->handleQueueNoteOff(0,118,25);
+	midiOut->handlePitchBend(0,index);
 }
 

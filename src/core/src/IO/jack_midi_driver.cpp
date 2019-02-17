@@ -101,7 +101,6 @@ JackMidiDriver::JackMidiWrite(jack_nframes_t nframes)
 
 		memset(buffer, 0, sizeof(buffer));
 		memcpy(buffer, event.buffer, error);
-
 		switch (buffer[0] >> 4) {
 		case 0x8:	 /* note off */
 			msg.m_type = MidiMessage::NOTE_OFF;
@@ -128,6 +127,12 @@ JackMidiDriver::JackMidiWrite(jack_nframes_t nframes)
 			msg.m_type = MidiMessage::PROGRAM_CHANGE;
 			msg.m_nData1 = buffer[1];
 			msg.m_nData2 = buffer[2];
+			msg.m_nChannel = buffer[0] & 0xF;
+			handleMidiMessage(msg);
+			break;
+		case 0xE:// pitch bend
+			msg.m_type = MidiMessage::PITCH_WHEEL;
+			msg.m_nData1 = ((buffer[1] & 0x7F) | ((int)(buffer[2] & 0x7F) << 7)) - 8192;
 			msg.m_nChannel = buffer[0] & 0xF;
 			handleMidiMessage(msg);
 			break;
@@ -182,6 +187,7 @@ JackMidiDriver::JackMidiWrite(jack_nframes_t nframes)
 				msg.m_nChannel = 0;
 				handleMidiMessage(msg);
 				break;
+
 			default:
 				break;
 			}
@@ -464,6 +470,11 @@ void JackMidiDriver::handleQueueAllNoteOff()
 
 		handleQueueNoteOff(channel, key, 0);
 	}
+}
+
+void JackMidiDriver::handlePitchBend(int channel, int pitch){
+	// not ready
+	return;
 }
 
 };
