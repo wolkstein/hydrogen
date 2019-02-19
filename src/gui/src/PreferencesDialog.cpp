@@ -248,6 +248,29 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
 		}
 	}
 
+
+	midiPortOutputComboBox->setEnabled( false );
+	// list midi input ports
+	midiPortOutputComboBox->clear();
+	midiPortOutputComboBox->addItem( "None" );
+	if ( Hydrogen::get_instance()->getMidiOutput() ) {
+		std::vector<QString> midiInputnList = Hydrogen::get_instance()->getMidiInput()->getInputPortList();
+
+		if ( midiInputnList.size() != 0 ) {
+			midiPortOutputComboBox->setEnabled( true );
+			midiPortChannelComboBox->setEnabled( true );
+		}
+		for (uint i = 0; i < midiInputnList.size(); i++) {
+			QString sPortName = midiInputnList[i];
+			midiPortOutputComboBox->addItem( sPortName );
+
+			if ( sPortName == pPref->m_sOutMidiPortName ) {
+				midiPortOutputComboBox->setCurrentIndex( i + 1 );
+			}
+		}
+	}
+
+
 	if ( pPref->m_nMidiChannelFilter == -1 ) {
 		midiPortChannelComboBox->setCurrentIndex( 0 );
 	}
@@ -474,9 +497,15 @@ void PreferencesDialog::on_okBtn_clicked()
 	}
 
 	QString sNewMidiPortName = midiPortComboBox->currentText();
+	QString sNewMidiOutPortName = midiPortOutputComboBox->currentText();
 
 	if ( pPref->m_sMidiPortName != sNewMidiPortName ) {
 		pPref->m_sMidiPortName = sNewMidiPortName;
+		m_bNeedDriverRestart = true;
+	}
+
+	if ( pPref->m_sOutMidiPortName != sNewMidiOutPortName ) {
+		pPref->m_sOutMidiPortName = sNewMidiOutPortName;
 		m_bNeedDriverRestart = true;
 	}
 

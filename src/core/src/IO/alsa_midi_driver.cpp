@@ -113,7 +113,12 @@ void* alsaMidiDriver_thread( void* param )
 	int m_local_addr_port = portId;
 	int m_local_addr_client = clientId;
 
+	int m_out_local_addr_port = portId;
+	int m_out_local_addr_client = clientId;
+
 	QString sPortName = Preferences::get_instance()->m_sMidiPortName;
+	QString sOutPortName = Preferences::get_instance()->m_sOutMidiPortName;
+
 	int m_dest_addr_port = -1;
 	int m_dest_addr_client = -1;
 	pDriver->getPortInfo( sPortName, m_dest_addr_client, m_dest_addr_port );
@@ -141,6 +146,46 @@ void* alsaMidiDriver_thread( void* param )
 			__ERRORLOG( QString( "snd_seq_subscribe_port(%1:%2) error" ).arg( m_dest_addr_client ).arg( m_dest_addr_port ) );
 		}
 	}
+
+
+
+
+
+
+	int m_out_dest_addr_port = -1;
+	int m_out_dest_addr_client = -1;
+	pDriver->getPortInfo( sOutPortName, m_out_dest_addr_client, m_out_dest_addr_port );
+	__INFOLOG( "MIDI out port name: "  + sOutPortName );
+	__INFOLOG( "MIDI out addr client: " +  m_out_dest_addr_client );
+	__INFOLOG( "MIDI out addr port: " + m_out_dest_addr_port );
+
+	if ( ( m_out_dest_addr_port != -1 ) && ( m_out_dest_addr_client != -1 ) ) {
+		snd_seq_port_subscribe_t *out_subs;
+		snd_seq_port_subscribe_alloca( &out_subs );
+		snd_seq_addr_t out_sender, out_dest;
+
+		out_sender.client = m_out_dest_addr_client;
+		out_sender.port = m_out_dest_addr_port;
+		out_dest.client = m_out_local_addr_client;
+		out_dest.port = m_out_local_addr_port;
+
+		/* set in and out ports */
+		snd_seq_port_subscribe_set_sender( out_subs, &out_sender );
+		snd_seq_port_subscribe_set_dest( out_subs, &out_dest );
+
+		/* subscribe */
+		int ret = snd_seq_subscribe_port( seq_handle, out_subs );
+		if ( ret < 0 ) {
+			__ERRORLOG( QString( "snd_seq_subscribe_port(%1:%2) error" ).arg( m_out_dest_addr_client ).arg( m_out_dest_addr_port ) );
+		}
+	}
+
+
+
+
+
+
+
 
 	__INFOLOG( QString( "Midi input port at %1:%2" ).arg( clientId ).arg( portId ) );
 
@@ -333,7 +378,50 @@ void AlsaMidiDriver::midi_action( snd_seq_t *seq_handle )
 }
 
 
+std::vector<QString> AlsaMidiDriver::getInputPortList()
+{
+	vector<QString> inputList;
 
+	if ( seq_handle == NULL ) {
+		return inputList;
+	}
+
+	snd_seq_client_info_t *cinfo;	// client info
+	snd_seq_port_info_t *pinfo;	// port info
+
+	snd_seq_client_info_alloca( &cinfo );
+	snd_seq_client_info_set_client( cinfo, -1 );
+
+	/* while the next client one the sequencer is avaiable */
+	while ( snd_seq_query_next_client( seq_handle, cinfo ) >= 0 ) {
+		// get client from cinfo
+		int client = snd_seq_client_info_get_client( cinfo );
+
+		// fill pinfo
+		snd_seq_port_info_alloca( &pinfo );
+		snd_seq_port_info_set_client( pinfo, client );
+		snd_seq_port_info_set_port( pinfo, -1 );
+
+		// while the next port is available
+		while ( snd_seq_query_next_port( seq_handle, pinfo ) >= 0 ) {
+
+			/* get its capability */
+			int cap =  snd_seq_port_info_get_capability( pinfo );
+
+			if ( snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo ) && snd_seq_port_info_get_client( pinfo ) != 0 ) {
+				// input ports
+				if  ( ( cap & SND_SEQ_PORT_CAP_SUBS_WRITE  ) != 0 && snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo ) ) {
+					INFOLOG( snd_seq_port_info_get_name( pinfo ) );
+					inputList.push_back( snd_seq_port_info_get_name( pinfo ) );
+					//info.m_nClient = snd_seq_port_info_get_client(pinfo);
+					//info.m_nPort = snd_seq_port_info_get_port(pinfo);
+				}
+			}
+		}
+	}
+
+	return inputList;
+}
 
 std::vector<QString> AlsaMidiDriver::getOutputPortList()
 {
@@ -367,10 +455,7 @@ std::vector<QString> AlsaMidiDriver::getOutputPortList()
 
 			if ( snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo ) && snd_seq_port_info_get_client( pinfo ) != 0 ) {
 				// output ports
-				if  (
-					( cap & SND_SEQ_PORT_CAP_SUBS_READ ) != 0 &&
-					snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo )
-				) {
+				if  ( ( cap & SND_SEQ_PORT_CAP_SUBS_READ ) != 0 && snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo ) ) {
 					INFOLOG( snd_seq_port_info_get_name( pinfo ) );
 					outputList.push_back( snd_seq_port_info_get_name( pinfo ) );
 					//info.m_nClient = snd_seq_port_info_get_client(pinfo);

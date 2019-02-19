@@ -56,6 +56,7 @@ public:
 	virtual void open();
 	virtual void close();
 	virtual std::vector<QString> getOutputPortList();
+	virtual std::vector<QString> getInputPortList();
 
 	void getPortInfo( const QString& sPortName, int& nClient, int& nPort );
 	void JackMidiWrite(jack_nframes_t nframes);
