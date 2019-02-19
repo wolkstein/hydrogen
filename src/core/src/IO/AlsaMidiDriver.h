@@ -52,7 +52,7 @@ public:
 	virtual std::vector<QString> getInputPortList();
 
 	void midi_action( snd_seq_t *seq_handle );
-	void getPortInfo( const QString& sPortName, int& nClient, int& nPort );
+	void getPortInfo( const QString& sPortName, int& nClient, int& nPort, bool input );
 	virtual void handleQueueNote(Note* pNote);
 	virtual void handleQueueNoteOff( int channel, int key, int velocity );
 
