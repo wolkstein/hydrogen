@@ -545,12 +545,15 @@
               </size>
              </property>
              <property name="text">
-              <string>Input</string>
+              <string>Input/Output</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QComboBox" name="midiPortComboBox"/>
+           </item>
+           <item>
+            <widget class="QComboBox" name="midiPortOutputComboBox"/>
            </item>
           </layout>
          </item>
@@ -896,7 +899,7 @@
       <widget class="QFrame" name="frame">
        <property name="geometry">
         <rect>
-         <x>410</x>
+         <x>400</x>
          <y>0</y>
          <width>121</width>
          <height>141</height>
@@ -959,7 +962,7 @@
         <rect>
          <x>110</x>
          <y>0</y>
-         <width>301</width>
+         <width>291</width>
          <height>271</height>
         </rect>
        </property>
@@ -1627,7 +1630,7 @@
       <widget class="QFrame" name="frame_4">
        <property name="geometry">
         <rect>
-         <x>410</x>
+         <x>400</x>
          <y>140</y>
          <width>121</width>
          <height>131</height>

@@ -196,6 +196,7 @@ public:
 	std::list<QString> sServerList;
 	std::list<QString> m_patternCategories;
 
+
 	//___ audio engine properties ___
 	QString m_sAudioDriver;		///< Audio Driver
 	bool m_bUseMetronome;		///< Use metronome?
@@ -210,6 +211,7 @@ public:
 	//___ MIDI Driver properties
 	QString m_sMidiDriver;
 	QString m_sMidiPortName;
+	QString	m_sOutMidiPortName;
 	int m_nMidiChannelFilter;
 	bool m_bMidiNoteOffIgnore;
 	bool m_bMidiDiscardNoteAfterAction;
@@ -224,6 +226,7 @@ public:
 	bool m_bJackConnectDefaults;
 	bool m_bJackTrackOuts;
 	int m_nJackTrackOutputMode;
+
 	//jack time master
 	int m_bJackMasterMode ;
 	//~ jack time master

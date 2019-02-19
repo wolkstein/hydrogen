@@ -381,6 +381,16 @@ JackMidiDriver::getOutputPortList()
 	return outputList;
 }
 
+std::vector<QString>
+JackMidiDriver::getInputPortList()
+{
+	vector<QString> inputList;
+
+	inputList.push_back("Default");
+
+	return inputList;
+}
+
 void
 JackMidiDriver::getPortInfo(const QString& sPortName, int& nClient, int& nPort)
 {

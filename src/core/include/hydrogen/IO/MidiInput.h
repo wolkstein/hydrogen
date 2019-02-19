@@ -43,6 +43,7 @@ public:
 	virtual void open() = 0;
 	virtual void close() = 0;
 	virtual std::vector<QString> getOutputPortList() = 0;
+	virtual std::vector<QString> getInputPortList() = 0;
 
 	void setActive( bool isActive ) {
 		m_bActive = isActive;
