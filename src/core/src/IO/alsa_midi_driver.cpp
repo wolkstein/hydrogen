@@ -113,7 +113,7 @@ void* alsaMidiDriver_thread( void* param )
 	int m_local_addr_port = portId;
 	int m_local_addr_client = clientId;
 
-	int m_out_local_addr_port = portId;
+	int m_out_local_addr_port = outPortId;
 	int m_out_local_addr_client = clientId;
 
 	QString sPortName = Preferences::get_instance()->m_sMidiPortName;
@@ -121,12 +121,14 @@ void* alsaMidiDriver_thread( void* param )
 
 	int m_dest_addr_port = -1;
 	int m_dest_addr_client = -1;
-	pDriver->getPortInfo( sPortName, m_dest_addr_client, m_dest_addr_port );
+	pDriver->getPortInfo( sPortName, m_dest_addr_client, m_dest_addr_port,true );
 	__INFOLOG( "MIDI port name: "  + sPortName );
 	__INFOLOG( "MIDI addr client: " +  m_dest_addr_client );
 	__INFOLOG( "MIDI addr port: " + m_dest_addr_port );
 
 	if ( ( m_dest_addr_port != -1 ) && ( m_dest_addr_client != -1 ) ) {
+		//qDebug()<< "--<<-midi-input--" << sPortName << m_dest_addr_client<<m_dest_addr_port<<m_local_addr_client<<m_local_addr_port;
+
 		snd_seq_port_subscribe_t *subs;
 		snd_seq_port_subscribe_alloca( &subs );
 		snd_seq_addr_t sender, dest;
@@ -149,12 +151,13 @@ void* alsaMidiDriver_thread( void* param )
 
 	int m_out_dest_addr_port = -1;
 	int m_out_dest_addr_client = -1;
-	pDriver->getPortInfo( sOutPortName, m_out_dest_addr_client, m_out_dest_addr_port );
+	pDriver->getPortInfo( sOutPortName, m_out_dest_addr_client, m_out_dest_addr_port,false );
 	__INFOLOG( "MIDI out port name: "  + sOutPortName );
 	__INFOLOG( "MIDI out addr client: " +  m_out_dest_addr_client );
 	__INFOLOG( "MIDI out addr port: " + m_out_dest_addr_port );
 
 	if ( ( m_out_dest_addr_port != -1 ) && ( m_out_dest_addr_client != -1 ) ) {
+		//qDebug()<< "-->>-midi-output--" << sOutPortName << m_out_dest_addr_client<<m_out_dest_addr_port<<m_out_local_addr_client<<m_out_local_addr_port;
 		snd_seq_port_subscribe_t *out_subs;
 		snd_seq_port_subscribe_alloca( &out_subs );
 		snd_seq_addr_t out_sender, out_dest;
@@ -165,8 +168,8 @@ void* alsaMidiDriver_thread( void* param )
 		out_dest.port = m_out_local_addr_port;
 
 		/* set in and out ports */
-		snd_seq_port_subscribe_set_sender( out_subs, &out_sender );
-		snd_seq_port_subscribe_set_dest( out_subs, &out_dest );
+		snd_seq_port_subscribe_set_sender( out_subs, &out_dest );
+		snd_seq_port_subscribe_set_dest( out_subs, &out_sender );
 
 		/* subscribe */
 		int ret = snd_seq_subscribe_port( seq_handle, out_subs );
@@ -456,7 +459,7 @@ std::vector<QString> AlsaMidiDriver::getOutputPortList()
 	return outputList;
 }
 
-void AlsaMidiDriver::getPortInfo( const QString& sPortName, int& nClient, int& nPort )
+void AlsaMidiDriver::getPortInfo( const QString& sPortName, int& nClient, int& nPort ,bool input)
 {
 	if ( seq_handle == NULL ) {
 		ERRORLOG( "seq_handle = NULL " );
@@ -489,11 +492,20 @@ void AlsaMidiDriver::getPortInfo( const QString& sPortName, int& nClient, int& n
 		while ( snd_seq_query_next_port( seq_handle, pinfo ) >= 0 ) {
 			int cap =  snd_seq_port_info_get_capability( pinfo );
 			if ( snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo ) && snd_seq_port_info_get_client( pinfo ) != 0 ) {
+				// input ports
+				if 	(input &&( ( cap & SND_SEQ_PORT_CAP_SUBS_READ ) != 0 && snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo ) ) ){
+					QString sName = snd_seq_port_info_get_name( pinfo );
+					if ( sName == sPortName ) {
+						nClient = snd_seq_port_info_get_client( pinfo );
+						nPort = snd_seq_port_info_get_port( pinfo );
+
+						INFOLOG( QString( "nClient %1" ).arg( nClient ) );
+						INFOLOG( QString( "nPort %1" ).arg( nPort ) );
+						return;
+					}
+				}
 				// output ports
-				if 	(
-					( cap & SND_SEQ_PORT_CAP_SUBS_READ ) != 0 &&
-					snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo )
-				) {
+				if 	(!input &&( ( cap & SND_SEQ_PORT_CAP_SUBS_WRITE ) != 0 && snd_seq_client_id( seq_handle ) != snd_seq_port_info_get_client( pinfo ) ) ){
 					QString sName = snd_seq_port_info_get_name( pinfo );
 					if ( sName == sPortName ) {
 						nClient = snd_seq_port_info_get_client( pinfo );

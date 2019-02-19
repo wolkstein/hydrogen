@@ -75,7 +75,7 @@ void loop() {
 
   for(int i = 0;i<8;i++){
     cVal[i] = analogRead(i);
-    if(i<7) cVal[i] = 0; // nicht angeschlossene pads floaten rum
+    //if(i<7) cVal[i] = 0; // nicht angeschlossene pads floaten rum
   }
 
   //Serial.printf("pad 7 %i\n",cVal[7]);
