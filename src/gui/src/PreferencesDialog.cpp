@@ -890,7 +890,7 @@ void PreferencesDialog::ongetConfigPuschButtonclicked( bool ok){
 	midiOut->handleQueueNoteOff(0,0,0);
 	midiOut->handleQueueNoteOff(0,119,0);
 	Preferences::get_instance()->setRpiConfigWaitforMidiMessages(true);
-	m_midiSettinsUpdateTimer->start(1000);
+	m_midiSettinsUpdateTimer->start(100);
 }
 
 

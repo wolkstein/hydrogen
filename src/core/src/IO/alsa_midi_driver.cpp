@@ -147,11 +147,6 @@ void* alsaMidiDriver_thread( void* param )
 		}
 	}
 
-
-
-
-
-
 	int m_out_dest_addr_port = -1;
 	int m_out_dest_addr_client = -1;
 	pDriver->getPortInfo( sOutPortName, m_out_dest_addr_client, m_out_dest_addr_port );
@@ -179,13 +174,6 @@ void* alsaMidiDriver_thread( void* param )
 			__ERRORLOG( QString( "snd_seq_subscribe_port(%1:%2) error" ).arg( m_out_dest_addr_client ).arg( m_out_dest_addr_port ) );
 		}
 	}
-
-
-
-
-
-
-
 
 	__INFOLOG( QString( "Midi input port at %1:%2" ).arg( clientId ).arg( portId ) );
 
