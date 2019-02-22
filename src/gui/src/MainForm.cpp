@@ -1294,7 +1294,6 @@ bool MainForm::eventFilter( QObject *o, QEvent *e )
 		// special processing for key press
 		QKeyEvent *k = (QKeyEvent *)e;
 
-		// qDebug( "Got key press for instrument '%c'", k->ascii() );
 		//int songnumber = 0;
 		HydrogenApp* app = HydrogenApp::get_instance();
 		Hydrogen* engine = Hydrogen::get_instance();
@@ -1349,7 +1348,19 @@ bool MainForm::eventFilter( QObject *o, QEvent *e )
 			return handleSelectNextPrevSongOnPlaylist( -1 );
 			break;
 
+		case  16777346 :
+			if( engine->m_PlayList.size() == 0)
+				break;
+			return handleSelectNextPrevSongOnPlaylist( -1 );
+			break;
+
 		case  Qt::Key_F6 :
+			if( Hydrogen::get_instance()->m_PlayList.size() == 0)
+				break;
+			return handleSelectNextPrevSongOnPlaylist( 1 );
+			break;
+
+		case  16777347 :
 			if( Hydrogen::get_instance()->m_PlayList.size() == 0)
 				break;
 			return handleSelectNextPrevSongOnPlaylist( 1 );

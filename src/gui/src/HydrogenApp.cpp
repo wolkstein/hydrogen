@@ -121,7 +121,7 @@ HydrogenApp::~HydrogenApp()
 	INFOLOG( "[~HydrogenApp]" );
 	m_pEventQueueTimer->stop();
 
-
+	QObject::disconnect(pTab, SIGNAL(currentChanged(int)),this,SLOT(currentTabChanged(int)));
 	//delete the undo tmp directory
 	cleanupTemporaryFiles();
 
@@ -147,7 +147,7 @@ HydrogenApp::~HydrogenApp()
 		delete m_pLadspaFXProperties[nFX];
 	}
 	#endif
-	
+
 }
 
 
@@ -303,6 +303,7 @@ void HydrogenApp::setupSinglePanedInterface()
 	}
 	else {
 		m_pMixer->hide();
+		//pTab->setCurrentIndex( 3 );
 	}
 
 
@@ -337,6 +338,7 @@ void HydrogenApp::setupSinglePanedInterface()
 
 void HydrogenApp::currentTabChanged(int index)
 {
+	//qDebug()<<index;
 	Preferences::get_instance()->setLastOpenTab( index );
 }
 
@@ -374,7 +376,7 @@ void HydrogenApp::showMixer(bool show)
 
 	if( uiLayout == Preferences::UI_LAYOUT_TABBED )
 	{
-		pTab->setCurrentIndex( 2 );
+		pTab->setCurrentIndex( 3 );
 	} else {
 		m_pMixer->setVisible( show );
 	}
@@ -392,7 +394,7 @@ void HydrogenApp::showInstrumentPanel(bool show)
 
 	if( uiLayout == Preferences::UI_LAYOUT_TABBED )
 	{
-		pTab->setCurrentIndex( 1 );
+		pTab->setCurrentIndex( 2 );
 		getInstrumentRack()->setHidden( show );
 	} else {
 		getInstrumentRack()->setHidden( show );

@@ -459,7 +459,7 @@ PlayerControl::PlayerControl(QWidget *parent)
 	m_pShowMixerBtn->setToolTip( trUtf8( "Show mixer" ) );
 	m_pShowMixerBtn->setText( trUtf8( "Mixer" ) );
 	if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
-		m_pShowMixerBtn->setVisible(false);
+		m_pShowMixerBtn->setVisible(true);
 	connect(m_pShowMixerBtn, SIGNAL(clicked(Button*)), this, SLOT(showButtonClicked(Button*)));
 
 	m_pShowInstrumentRackBtn = new ToggleButton(
@@ -474,7 +474,7 @@ PlayerControl::PlayerControl(QWidget *parent)
 	m_pShowInstrumentRackBtn->setToolTip( trUtf8( "Show Instrument Rack" ) );
 	m_pShowInstrumentRackBtn->setText( trUtf8( "I. Rack" ) );
 	if( Preferences::get_instance()->getDefaultUILayout() == Preferences::UI_LAYOUT_TABBED )
-		m_pShowInstrumentRackBtn->setVisible(false);
+		m_pShowInstrumentRackBtn->setVisible(true);
 	connect( m_pShowInstrumentRackBtn, SIGNAL( clicked(Button*) ), this, SLOT( showButtonClicked( Button*)) );
 
 	m_pStatusLabel = new LCDDisplay(pLcdBackGround , LCDDigit::SMALL_BLUE, 11, true );
