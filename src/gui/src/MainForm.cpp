@@ -359,6 +359,8 @@ void MainForm::createMenuBar()
 	m_pInfoMenu->addAction( trUtf8("Report bug"), this, SLOT( action_report_bug() ));
 	m_pInfoMenu->addAction( trUtf8("Donate"), this, SLOT( action_donate() ));
 	//~ INFO menu
+
+	m_pRecentSongInfo = m_pMenubar->addMenu( trUtf8( "" ) );
 }
 
 
@@ -714,6 +716,7 @@ void MainForm::action_file_open() {
 	}
 
 	HydrogenApp::get_instance()->getInstrumentRack()->getSoundLibraryPanel()->update_background_color();
+
 }
 
 
@@ -1167,6 +1170,16 @@ void MainForm::openSongFile( const QString& sFilename )
 		return;
 	}
 
+
+	if(this->isFullScreen()){
+
+		QString qsSongName( pSong->__name );
+		if( qsSongName == "Untitled Song" && !pSong->get_filename().isEmpty() ){
+			qsSongName = pSong->get_filename().section( '/', -1 );
+		}
+		m_pRecentSongInfo->setTitle( QString("     >> ") + QString(qsSongName) + QString(" << "));
+	}
+
 	h2app->m_undoStack->clear();
 
 	// add the new loaded song in the "last used song" vector
@@ -1181,6 +1194,7 @@ void MainForm::openSongFile( const QString& sFilename )
 	engine->setSelectedPatternNumber( 0 );
 	HydrogenApp::get_instance()->getSongEditorPanel()->updatePositionRuler();
 	EventQueue::get_instance()->push_event( EVENT_METRONOME, 3 );
+
 }
 
 
@@ -1795,5 +1809,6 @@ bool MainForm::handleSelectNextPrevSongOnPlaylist( int step )
 
 	return TRUE;
 }
+
 
 

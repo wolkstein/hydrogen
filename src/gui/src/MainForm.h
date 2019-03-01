@@ -60,6 +60,7 @@ class MainForm : public QMainWindow, public EventListener, public H2Core::Object
 		static void usr1SignalHandler(int unused);
 
 
+
 public slots:
 		void showPreferencesDialog();
 		void showUserManual();
@@ -142,6 +143,7 @@ public slots:
 		QAction *m_pDrumkitAction;
 
 		QMenu *m_pRecentFilesMenu;
+		QMenu *m_pRecentSongInfo;
 		QAction *m_pRecentFileAction0;
 		QAction *m_pRecentFileAction1;
 		QAction *m_pRecentFileAction2;
