@@ -1805,6 +1805,7 @@ bool MainForm::handleSelectNextPrevSongOnPlaylist( int step )
 	int songnumber = Playlist::get_instance()->getActiveSongNumber();
 	if(songnumber+step >= 0 && songnumber+step <= playlistSize-1){
 		Playlist::get_instance()->setNextSongByNumber( songnumber + step );
+		h2app->updateWindowTitle();
 	}
 	else
 		return FALSE;
