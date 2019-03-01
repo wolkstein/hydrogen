@@ -444,6 +444,10 @@ void HydrogenApp::updateWindowTitle()
 	}
 
 	m_pMainForm->setWindowTitle( ( "Hydrogen " + QString( get_version().c_str()) + QString( " - " ) + title ) );
+
+	if(m_pMainForm->isFullScreen())
+		m_pMainForm->m_pRecentSongInfo->setTitle( QString("     >> ") + QString(qsSongName) + QString(" << "));
+
 }
 
 void HydrogenApp::setScrollStatusBarMessage( const QString& msg, int msec, bool test )

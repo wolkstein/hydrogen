@@ -210,6 +210,8 @@ MainForm::MainForm( QApplication *app, const QString& songFilename )
 	}
 
 	if( Preferences::get_instance()->getStartInFullscreenMode() ) this->showFullScreen();
+
+	h2app->updateWindowTitle();
 }
 
 
@@ -1171,14 +1173,14 @@ void MainForm::openSongFile( const QString& sFilename )
 	}
 
 
-	if(this->isFullScreen()){
+//	if(this->isFullScreen()){
 
-		QString qsSongName( pSong->__name );
-		if( qsSongName == "Untitled Song" && !pSong->get_filename().isEmpty() ){
-			qsSongName = pSong->get_filename().section( '/', -1 );
-		}
-		m_pRecentSongInfo->setTitle( QString("     >> ") + QString(qsSongName) + QString(" << "));
-	}
+//		QString qsSongName( pSong->__name );
+//		if( qsSongName == "Untitled Song" && !pSong->get_filename().isEmpty() ){
+//			qsSongName = pSong->get_filename().section( '/', -1 );
+//		}
+//		m_pRecentSongInfo->setTitle( QString("     >> ") + QString(qsSongName) + QString(" << "));
+//	}
 
 	h2app->m_undoStack->clear();
 
