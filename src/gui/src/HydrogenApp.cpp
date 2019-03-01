@@ -359,9 +359,9 @@ void HydrogenApp::setSong(Song* song)
 	m_pSongEditorPanel->updateAll();
 	m_pPatternEditorPanel->updateSLnameLabel();
 
-	updateWindowTitle();
-
 	m_pMainForm->updateRecentUsedSongList();
+
+	updateWindowTitle();
 }
 
 void HydrogenApp::showMixer(bool show)
@@ -444,7 +444,6 @@ void HydrogenApp::updateWindowTitle()
 	}
 
 	m_pMainForm->setWindowTitle( ( "Hydrogen " + QString( get_version().c_str()) + QString( " - " ) + title ) );
-
 	if(m_pMainForm->isFullScreen())
 		m_pMainForm->m_pRecentSongInfo->setTitle( QString("     >> ") + QString(qsSongName) + QString(" << "));
 

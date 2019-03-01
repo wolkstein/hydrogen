@@ -1589,6 +1589,8 @@ void MainForm::playlistLoadSongEvent (int nIndex)
 
 	EventQueue::get_instance()->push_event( EVENT_METRONOME, 3 );
 	HydrogenApp::get_instance()->setScrollStatusBarMessage( trUtf8( "Playlist: Set song No. %1" ).arg( nIndex +1 ), 5000 );
+	HydrogenApp::get_instance()->updateWindowTitle();
+
 }
 
 void MainForm::jacksessionEvent( int nEvent )
@@ -1805,7 +1807,6 @@ bool MainForm::handleSelectNextPrevSongOnPlaylist( int step )
 	int songnumber = Playlist::get_instance()->getActiveSongNumber();
 	if(songnumber+step >= 0 && songnumber+step <= playlistSize-1){
 		Playlist::get_instance()->setNextSongByNumber( songnumber + step );
-		h2app->updateWindowTitle();
 	}
 	else
 		return FALSE;
