@@ -89,15 +89,20 @@ Playlist* Playlist::load( const QString& filename )
 	return NULL;
 }
 
-/* This method is called by Event dispacher thread ( GUI ) */
-bool Playlist::loadSong (int songNumber)
+/* This method is called by Event dispacher thread ( GUI )
+WOLKE RPI PAD Showstopper. Pad crasch often while new song/RPI-PAD-bank selected. need a fix!!!
+*/
+
+bool Playlist::loadSong(int songNumber)
 {
 	Hydrogen* pHydrogen = Hydrogen::get_instance();
 	Preferences *pPref = Preferences::get_instance();
 
-	if ( pHydrogen->getState() == STATE_PLAYING ){
-		pHydrogen->sequencer_stop();
-	}
+	pHydrogen->__panic();
+	// panic also stop sequencer and stop all playing notes
+	//if ( pHydrogen->getState() == STATE_PLAYING ){
+	//	pHydrogen->sequencer_stop();
+	//}
 
 	/* Load Song from file */
 	QString selected = pHydrogen->m_PlayList[ songNumber ].m_hFile;

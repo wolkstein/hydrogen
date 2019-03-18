@@ -1566,10 +1566,13 @@ void MainForm::errorEvent( int nErrorCode )
 
 void MainForm::playlistLoadSongEvent (int nIndex)
 {
+	QApplication::setOverrideCursor(Qt::WaitCursor);
 	Playlist* pPlaylist = Playlist::get_instance();
 
-	if ( ! pPlaylist->loadSong ( nIndex ) )
+	if ( ! pPlaylist->loadSong ( nIndex ) ){
+		QApplication::restoreOverrideCursor();
 		return;
+	}
 
 	Song* pSong = Hydrogen::get_instance()->getSong();
 
@@ -1590,6 +1593,7 @@ void MainForm::playlistLoadSongEvent (int nIndex)
 	EventQueue::get_instance()->push_event( EVENT_METRONOME, 3 );
 	HydrogenApp::get_instance()->setScrollStatusBarMessage( trUtf8( "Playlist: Set song No. %1" ).arg( nIndex +1 ), 5000 );
 	HydrogenApp::get_instance()->updateWindowTitle();
+	QApplication::restoreOverrideCursor();
 
 }
 
@@ -1807,6 +1811,7 @@ bool MainForm::handleSelectNextPrevSongOnPlaylist( int step )
 	int songnumber = Playlist::get_instance()->getActiveSongNumber();
 	if(songnumber+step >= 0 && songnumber+step <= playlistSize-1){
 		Playlist::get_instance()->setNextSongByNumber( songnumber + step );
+		//Playlist::get_instance()->loadSong(songnumber + step );
 	}
 	else
 		return FALSE;

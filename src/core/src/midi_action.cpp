@@ -152,6 +152,7 @@ MidiActionManager::MidiActionManager() : Object( __class_name )
 			  << "MASTER_VOLUME_ABSOLUTE"
 			  << "STRIP_VOLUME_RELATIVE"
 			  << "STRIP_VOLUME_ABSOLUTE"
+			  << "SELECTED_STRIP_VOLUME_ABSOLUTE"
 			  << "EFFECT1_LEVEL_RELATIVE"
 			  << "EFFECT2_LEVEL_RELATIVE"
 			  << "EFFECT3_LEVEL_RELATIVE"
@@ -175,6 +176,8 @@ MidiActionManager::MidiActionManager() : Object( __class_name )
 			  << "PLAYLIST_PREV_SONG"
 			  << "TOGGLE_METRONOME"
 			  << "SELECT_INSTRUMENT"
+			  << "SELECT_NEXT_INSTRUMENT"
+			  << "SELECT_PREV_INSTRUMENT"
 			  << "UNDO_ACTION"
 			  << "REDO_ACTION";
 
@@ -387,6 +390,22 @@ bool MidiActionManager::handleAction( MidiAction * pAction ){
 		return true;
 	}
 
+	if( sActionString == "SELECT_NEXT_INSTRUMENT" ){
+		//bool ok;
+		int currentinstr = pEngine->getSelectedInstrumentNumber();
+		if(currentinstr + 1 < pEngine->getSong()->get_instrument_list()->size())
+			pEngine->setSelectedInstrumentNumber( currentinstr + 1);
+		return true;
+	}
+
+	if( sActionString == "SELECT_PREV_INSTRUMENT" ){
+		//bool ok;
+		int currentinstr = pEngine->getSelectedInstrumentNumber();
+		if(currentinstr > 0 )
+			pEngine->setSelectedInstrumentNumber( currentinstr - 1);
+		return true;
+	}
+
 	if( sActionString == "EFFECT1_LEVEL_ABSOLUTE" ){
 		bool ok;
 		int nLine = pAction->getParameter1().toInt(&ok,10);
@@ -515,6 +534,28 @@ bool MidiActionManager::handleAction( MidiAction * pAction ){
 		}
 
 		Hydrogen::get_instance()->setSelectedInstrumentNumber(nLine);
+	}
+
+	if( sActionString == "SELECTED_STRIP_VOLUME_ABSOLUTE" ){
+		//sets the volume of a mixer strip to a given level (percentage)
+
+		bool ok;
+		int vol_param = pAction->getParameter2().toInt(&ok,10);
+
+		Hydrogen *engine = Hydrogen::get_instance();
+		int instrumentnr = engine->getSelectedInstrumentNumber();
+		Song *song = engine->getSong();
+		InstrumentList *instrList = song->get_instrument_list();
+
+		Instrument *instr = instrList->get( instrumentnr );
+
+		if ( instr == NULL) return 0;
+
+		if( vol_param != 0 ){
+			instr->set_volume( 1.5* ( (float) (vol_param / 127.0 ) ));
+		} else {
+			instr->set_volume( 0 );
+		}
 	}
 
 	if( sActionString == "PAN_ABSOLUTE" ){

@@ -541,9 +541,9 @@ void AlsaMidiDriver::handleQueueNote(Note* pNote)
 
 	//Note off
 	snd_seq_ev_clear(&ev);
-		snd_seq_ev_set_source(&ev, outPortId);
-		snd_seq_ev_set_subs(&ev);
-		snd_seq_ev_set_direct(&ev);
+	snd_seq_ev_set_source(&ev, outPortId);
+	snd_seq_ev_set_subs(&ev);
+	snd_seq_ev_set_direct(&ev);
 	snd_seq_ev_set_noteoff(&ev, channel, key, velocity);
 	snd_seq_event_output(seq_handle, &ev);
 	snd_seq_drain_output(seq_handle);
@@ -551,10 +551,10 @@ void AlsaMidiDriver::handleQueueNote(Note* pNote)
 	//Note on
 	//snd_seq_event_input(seq_handle, &ev);
 	snd_seq_ev_clear(&ev);
-		snd_seq_ev_set_source(&ev, outPortId);
-		snd_seq_ev_set_subs(&ev);
-		snd_seq_ev_set_direct(&ev);
-		//snd_seq_event_output_direct( seq_handle, ev );
+	snd_seq_ev_set_source(&ev, outPortId);
+	snd_seq_ev_set_subs(&ev);
+	snd_seq_ev_set_direct(&ev);
+	//snd_seq_event_output_direct( seq_handle, ev );
 
 	snd_seq_ev_set_noteon(&ev, channel, key, velocity);
 	snd_seq_event_output(seq_handle, &ev);
