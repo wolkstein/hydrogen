@@ -10,6 +10,7 @@ using namespace std;
 
 #include <QtGui>
 
+
 int main( int argc, char* argv[] )
 {
 	cout << "--=( Hydrogen Synth test )=--" << endl;
