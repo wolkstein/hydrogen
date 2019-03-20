@@ -114,7 +114,7 @@ void Sampler::process( uint32_t nFrames, Song* pSong )
 
 	for (std::vector<DrumkitComponent*>::iterator it = pSong->get_components()->begin() ; it != pSong->get_components()->end(); ++it) {
 		DrumkitComponent* component = *it;
-		component->reset_outs(nFrames);
+		if(component) component->reset_outs(nFrames);
 	}
 
 
