@@ -140,6 +140,7 @@ HydrogenApp::~HydrogenApp()
 	delete m_pPlaylistDialog;
 	delete m_pDirector;
 	delete m_pSampleEditor;
+	delete m_pInstrumentRack;
 
 	delete SoundLibraryDatabase::get_instance();
 
@@ -213,7 +214,7 @@ void HydrogenApp::setupSinglePanedInterface()
 	if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
 		pTab->setMovable( false );
 		pTab->setTabsClosable( false );
-		pTab->addTab( pSouthPanel, trUtf8( "Instrument + Pattern") );
+		pTab->addTab( pSouthPanel, trUtf8( "Pattern") );
 	}
 
 	// PATTERN EDITOR
@@ -221,8 +222,17 @@ void HydrogenApp::setupSinglePanedInterface()
 	WindowProperties patternEditorProp = pPref->getPatternEditorProperties();
 	m_pPatternEditorPanel->resize( patternEditorProp.width, patternEditorProp.height );
 
+
 	pEditorHBox->addWidget( m_pPatternEditorPanel );
-	pEditorHBox->addWidget( m_pInstrumentRack );
+	if( uiLayout == Preferences::UI_LAYOUT_TABBED ){
+		m_pInstrumentRack->show();
+	}
+	else{
+		pEditorHBox->addWidget( m_pInstrumentRack );
+	}
+
+
+
 
 	// PLayer control
 	m_pPlayerControl = new PlayerControl( NULL );

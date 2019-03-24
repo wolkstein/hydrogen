@@ -253,6 +253,9 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 
 
 
+	int lessthansixteen = 0;
+	int lesslayeroffsett = lessthansixteen * 10;//m_nLayerHeight = 10
+
 	// Layer preview
 	m_pLayerPreview = new LayerPreview( NULL );
  
@@ -260,10 +263,10 @@ InstrumentEditor::InstrumentEditor( QWidget* pParent )
 	m_pLayerScrollArea->setFrameShape( QFrame::NoFrame );
 	m_pLayerScrollArea->move( 6, 4 );
 	m_pLayerScrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-	if ( MAX_LAYERS > 16)
+	if ( MAX_LAYERS > 16 - lessthansixteen)
 		m_pLayerScrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
 	m_pLayerScrollArea->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-	m_pLayerScrollArea->setMaximumHeight( 182 );
+	m_pLayerScrollArea->setMaximumHeight( 183 - lesslayeroffsett );
 	m_pLayerScrollArea->setWidget( m_pLayerPreview  );
 
 
