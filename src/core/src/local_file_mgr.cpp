@@ -49,6 +49,7 @@
 #include <QVector>
 #include <QDomDocument>
 #include <QLocale>
+#include <QDebug>
 
 namespace H2Core
 {
@@ -831,19 +832,22 @@ int LocalFileMng::savePlayList( const std::string& filename)
 
 int LocalFileMng::loadPlayList( const std::string& filename)
 {
+	qDebug() << "test";
 	std::string playlistInfoFile = filename;
 	std::ifstream verify( playlistInfoFile.c_str() , std::ios::in | std::ios::binary );
-	if ( verify ) {
+	if ( !verify ) {
 		return 1;
 	}
 
 	QDomDocument doc = LocalFileMng::openXmlDocument( QString( filename.c_str() ) );
 
+
+
 	Hydrogen::get_instance()->m_PlayList.clear();
 
 	QDomNode rootNode = doc.firstChildElement( "playlist" );	// root element
 	if ( rootNode.isNull() ) {
-		ERRORLOG( "Error reading playlist: playlist node not found" );
+		INFOLOG( "Error reading playlist: playlist node not found" );
 		return 1;
 	}
 	QDomNode playlistNode = rootNode.firstChildElement( "Songs" );
