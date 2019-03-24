@@ -1061,7 +1061,14 @@ void Preferences::savePreferences()
 	file.close();
 }
 
+// rpi pad
+void Preferences::setRpiConfigWaitforMidiMessages( bool value ){
+	m_rpiConfigWaitforMidiMessages = value;
+}
 
+bool Preferences::getRpiConfigWaitforMidiMessages(){
+	return m_rpiConfigWaitforMidiMessages;
+}
 
 ///
 /// Create preferences directory

@@ -54,31 +54,9 @@ class PreferencesDialog : public QDialog, private Ui_PreferencesDialog_UI, publi
 		void on_useLashCheckbox_clicked();
 		void onMidiDriverComboBoxIndexChanged( int index );
 		void toggleTrackOutsCheckBox(bool toggled);
-<<<<<<< HEAD
-=======
-		void coloringMethodCombo_currentIndexChanged (int index);
+//		void coloringMethodCombo_currentIndexChanged (int index);
 		void ongetConfigPuschButtonclicked(bool ok);
 		void onwriteConfigPuschButtonclicked(bool ok);
-<<<<<<< HEAD
-=======
-
-		void ontresholdSpinBox_1ValueChanged(int index);
-		void onnotespinBoxPad_1ValueChanged(int index);
-		void ontresholdSpinBox_2ValueChanged(int index);
-		void onnotespinBoxPad_2ValueChanged(int index);
-		void ontresholdSpinBox_3ValueChanged(int index);
-		void onnotespinBoxPad_3ValueChanged(int index);
-		void ontresholdSpinBox_4ValueChanged(int index);
-		void onnotespinBoxPad_4ValueChanged(int index);
-		void ontresholdSpinBox_5ValueChanged(int index);
-		void onnotespinBoxPad_5ValueChanged(int index);
-		void ontresholdSpinBox_6ValueChanged(int index);
-		void onnotespinBoxPad_6ValueChanged(int index);
-		void ontresholdSpinBox_7ValueChanged(int index);
-		void onnotespinBoxPad_7ValueChanged(int index);
-		void ontresholdSpinBox_8ValueChanged(int index);
-		void onnotespinBoxPad_8ValueChanged(int index);
->>>>>>> d7fa066... add rpi keyevents
 
 		void ontresholdSpinBox_1ValueChanged(int index);
 		void onnotespinBoxPad_1ValueChanged(int index);
@@ -97,7 +75,9 @@ class PreferencesDialog : public QDialog, private Ui_PreferencesDialog_UI, publi
 		void ontresholdSpinBox_8ValueChanged(int index);
 		void onnotespinBoxPad_8ValueChanged(int index);
 
->>>>>>> d7fa066... add rpi keyevents
+
+
+
 
 	private:
 		bool m_bNeedDriverRestart;
