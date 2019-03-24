@@ -170,6 +170,7 @@ void MidiInput::handleMidiMessage( const MidiMessage& msg )
 void MidiInput::handlePitchWeelMessage( const MidiMessage& msg ){
 
 	int pitchbendValue = msg.m_nData1;
+	//qDebug()<< pitchbendValue;
 
 	if(Preferences::get_instance()->getRpiConfigWaitforMidiMessages()){
 		if(pitchbendValue == 8190){

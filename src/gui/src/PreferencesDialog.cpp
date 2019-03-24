@@ -818,7 +818,7 @@ void PreferencesDialog::ongetConfigPuschButtonclicked( bool ok){
 	midiOut->handleQueueNoteOff(0,0,0);
 	midiOut->handleQueueNoteOff(0,119,0);
 	Preferences::get_instance()->setRpiConfigWaitforMidiMessages(true);
-	m_midiSettinsUpdateTimer->start(100);
+	m_midiSettinsUpdateTimer->start(150);
 }
 
 
@@ -829,47 +829,44 @@ void PreferencesDialog::updateMidiSettings(){
 	//code here
 	std::vector<int> rpiMidiSettings = Preferences::get_instance()->getRpiMidiSettings();
 
-	int p = 0;
 
 	if(rpiMidiSettings.size() > 0){
-		for(int in : rpiMidiSettings ){
-			//qDebug() << in << "at:" << p;
-			if(p==0) this->tresholdSpinBox_1->setValue( in );
-			if(p==1) this->sensingSpinBox_1->setValue( in );
-			if(p==2) this->notespinBoxPad_1->setValue( in );
+		for( int p = 0; p < rpiMidiSettings.size(); p++ ){
+			qDebug() << "at:" << p;
+			if(p==0) this->tresholdSpinBox_1->setValue( rpiMidiSettings[0] );
+			if(p==1) this->sensingSpinBox_1->setValue( rpiMidiSettings[1] );
+			if(p==2) this->notespinBoxPad_1->setValue( rpiMidiSettings[2] );
 
-			if(p==3) this->tresholdSpinBox_2->setValue( in );
-			if(p==4) this->sensingSpinBox_2->setValue( in );
-			if(p==5) this->notespinBoxPad_2->setValue( in );
+			if(p==3) this->tresholdSpinBox_2->setValue( rpiMidiSettings[3] );
+			if(p==4) this->sensingSpinBox_2->setValue( rpiMidiSettings[4] );
+			if(p==5) this->notespinBoxPad_2->setValue( rpiMidiSettings[5] );
 
-			if(p==6) this->tresholdSpinBox_3->setValue( in );
-			if(p==7) this->sensingSpinBox_3->setValue( in );
-			if(p==8) this->notespinBoxPad_3->setValue( in );
+			if(p==6) this->tresholdSpinBox_3->setValue( rpiMidiSettings[6] );
+			if(p==7) this->sensingSpinBox_3->setValue( rpiMidiSettings[7] );
+			if(p==8) this->notespinBoxPad_3->setValue( rpiMidiSettings[8] );
 
-			if(p==9) this->tresholdSpinBox_4->setValue( in );
-			if(p==10) this->sensingSpinBox_4->setValue( in );
-			if(p==11) this->notespinBoxPad_4->setValue( in );
+			if(p==9) this->tresholdSpinBox_4->setValue( rpiMidiSettings[9] );
+			if(p==10) this->sensingSpinBox_4->setValue( rpiMidiSettings[10] );
+			if(p==11) this->notespinBoxPad_4->setValue( rpiMidiSettings[11] );
 
-			if(p==12) this->tresholdSpinBox_5->setValue( in );
-			if(p==13) this->sensingSpinBox_5->setValue( in );
-			if(p==14) this->notespinBoxPad_5->setValue( in );
+			if(p==12) this->tresholdSpinBox_5->setValue( rpiMidiSettings[12] );
+			if(p==13) this->sensingSpinBox_5->setValue( rpiMidiSettings[13] );
+			if(p==14) this->notespinBoxPad_5->setValue( rpiMidiSettings[14] );
 
-			if(p==15) this->tresholdSpinBox_6->setValue( in );
-			if(p==16) this->sensingSpinBox_6->setValue( in );
-			if(p==17) this->notespinBoxPad_6->setValue( in );
+			if(p==15) this->tresholdSpinBox_6->setValue( rpiMidiSettings[15] );
+			if(p==16) this->sensingSpinBox_6->setValue( rpiMidiSettings[16] );
+			if(p==17) this->notespinBoxPad_6->setValue( rpiMidiSettings[17] );
 
-			if(p==18) this->tresholdSpinBox_7->setValue( in );
-			if(p==19) this->sensingSpinBox_7->setValue( in );
-			if(p==20) this->notespinBoxPad_7->setValue( in );
+			if(p==18) this->tresholdSpinBox_7->setValue( rpiMidiSettings[18] );
+			if(p==19) this->sensingSpinBox_7->setValue( rpiMidiSettings[19] );
+			if(p==20) this->notespinBoxPad_7->setValue( rpiMidiSettings[20] );
 
-			if(p==21) this->tresholdSpinBox_8->setValue( in );
-			if(p==22) this->sensingSpinBox_8->setValue( in );
-			if(p==23) this->notespinBoxPad_8->setValue( in );
+			if(p==21) this->tresholdSpinBox_8->setValue( rpiMidiSettings[21] );
+			if(p==22) this->sensingSpinBox_8->setValue( rpiMidiSettings[22] );
+			if(p==23) this->notespinBoxPad_8->setValue( rpiMidiSettings[23] );
 
 			//if(p==24) midichannel
-			if(p==25) this->PadRetriggerSpinBox->setValue( in );
-
-			p++;
+			if(p==25) this->PadRetriggerSpinBox->setValue( rpiMidiSettings[25] );
 		}
 	}
 
