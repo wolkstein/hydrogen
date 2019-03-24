@@ -49,7 +49,6 @@
 #include <QVector>
 #include <QDomDocument>
 #include <QLocale>
-#include <QDebug>
 
 namespace H2Core
 {
@@ -832,7 +831,6 @@ int LocalFileMng::savePlayList( const std::string& filename)
 
 int LocalFileMng::loadPlayList( const std::string& filename)
 {
-	qDebug() << "test";
 	std::string playlistInfoFile = filename;
 	std::ifstream verify( playlistInfoFile.c_str() , std::ios::in | std::ios::binary );
 	if ( !verify ) {
@@ -840,8 +838,6 @@ int LocalFileMng::loadPlayList( const std::string& filename)
 	}
 
 	QDomDocument doc = LocalFileMng::openXmlDocument( QString( filename.c_str() ) );
-
-
 
 	Hydrogen::get_instance()->m_PlayList.clear();
 
