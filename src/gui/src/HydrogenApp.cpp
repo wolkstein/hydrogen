@@ -371,7 +371,7 @@ void HydrogenApp::showInstrumentPanel(bool show)
 
 	if( uiLayout == Preferences::UI_LAYOUT_TABBED )
 	{
-		pTab->setCurrentIndex( 1 );
+		//pTab->setCurrentIndex( 1 );
 		getInstrumentRack()->setHidden( show );
 	} else {
 		getInstrumentRack()->setHidden( show );
