@@ -831,9 +831,6 @@ void PreferencesDialog::updateMidiSettings(){
 
 	int p = 0;
 
-	qDebug()<< rpiMidiSettings.size();
-	return;
-
 	if(rpiMidiSettings.size() > 0){
 		for(int in : rpiMidiSettings ){
 			//qDebug() << in << "at:" << p;
