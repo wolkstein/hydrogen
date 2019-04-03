@@ -1078,6 +1078,16 @@ std::vector<int> Preferences::getRpiMidiSettings(){
 	return m_RpiMidiSettings;
 }
 
+bool Preferences::getStartInFullscreenMode() const
+{
+	return m_startInFullscreenMode;
+}
+
+void Preferences::setStartInFullscreenMode(bool val)
+{
+	m_startInFullscreenMode = val;
+}
+
 ///
 /// Create preferences directory
 ///

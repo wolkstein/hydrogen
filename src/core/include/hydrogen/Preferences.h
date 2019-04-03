@@ -246,6 +246,10 @@ public:
 
 	~Preferences();
 
+	bool getStartInFullscreenMode() const;
+	void setStartInFullscreenMode(bool val);
+
+
 	void setRpiConfigWaitforMidiMessages( bool value );
 	bool getRpiConfigWaitforMidiMessages();
 	/// Load the preferences file
@@ -624,6 +628,7 @@ public:
 
 private:
 	static Preferences *__instance;
+	bool m_startInFullscreenMode;
 
 	QString m_sDataDirectory;
 	QString m_sTmpDirectory;

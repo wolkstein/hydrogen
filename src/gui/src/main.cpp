@@ -71,6 +71,7 @@ static struct option long_opts[] = {
 	{"help", 0, NULL, 'h'},
 	{"install", required_argument, NULL, 'i'},
 	{"drumkit", required_argument, NULL, 'k'},
+	{"fullscreen", 0, NULL, 'F'},
 	{0, 0, 0, 0},
 };
 
@@ -185,6 +186,7 @@ int main(int argc, char *argv[])
 		QString drumkitName;
 		QString drumkitToLoad;
 		bool showHelpOpt = false;
+		bool fullscreen = false;
 
 		int c;
 		for (;;) {
@@ -221,6 +223,10 @@ int main(int argc, char *argv[])
 
 				case 'v':
 					showVersionOpt = true;
+					break;
+
+				case 'F':
+					fullscreen = true;
 					break;
 
 				case 'i':
@@ -406,6 +412,8 @@ int main(int argc, char *argv[])
 		QString path = pQApp->applicationFilePath();
 		pPref->setJackSessionApplicationPath( path );
 #endif
+
+		pPref->setStartInFullscreenMode( fullscreen );
 
 		// Hydrogen here to honor all preferences.
 		H2Core::Hydrogen::create_instance();
