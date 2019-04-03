@@ -163,6 +163,7 @@ MidiActionManager::MidiActionManager() : Object( __class_name )
 			  << "SELECT_NEXT_PATTERN"
 			  << "SELECT_NEXT_PATTERN_CC_ABSOLUT"
 			  << "SELECT_NEXT_PATTERN_PROMPTLY"
+			  << "SELECT_PREV_PATTERN_RELATIVE"
 			  << "SELECT_NEXT_PATTERN_RELATIVE"
 			  << "SELECT_AND_PLAY_PATTERN"
 			  << "PAN_RELATIVE"
@@ -302,6 +303,18 @@ bool MidiActionManager::handleAction( MidiAction * pAction ){
 			pEngine->setSelectedPatternNumber( row );
 		else
 			pEngine->sequencer_setNextPattern( row, false, true );
+		return true;
+	}
+
+	if( sActionString == "SELECT_PREV_PATTERN_RELATIVE" ){
+		bool ok;
+		if(!Preferences::get_instance()->patternModePlaysSelected())
+			return true;
+		int row = pEngine->getSelectedPatternNumber() - pAction->getParameter1().toInt(&ok,10);
+		if( row < 0 )
+			return false;
+
+		pEngine->setSelectedPatternNumber( row );
 		return true;
 	}
 
