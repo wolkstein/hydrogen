@@ -94,7 +94,7 @@ MainForm::MainForm( QApplication *app, const QString& songFilename )
 	connect(snUsr1, SIGNAL(activated(int)), this, SLOT( handleSigUsr1() ));
 #endif
 
-
+	createMenuBar();
 	m_pQApp = app;
 
 	m_pQApp->processEvents();
@@ -129,7 +129,7 @@ MainForm::MainForm( QApplication *app, const QString& songFilename )
 
 	h2app = new HydrogenApp( this, song );
 	h2app->addEventListener( this );
-	createMenuBar();
+
 
 	h2app->setStatusBarMessage( trUtf8("Hydrogen Ready."), 10000 );
 
@@ -348,6 +348,8 @@ void MainForm::createMenuBar()
 	m_pInfoMenu->addAction( trUtf8("&About"), this, SLOT( action_help_about() ), QKeySequence( trUtf8("", "Info|About") ) );
 	m_pInfoMenu->addAction( trUtf8("Report bug"), this, SLOT( action_report_bug() ));
 	//~ INFO menu
+
+	m_pRecentSongInfo = m_pMenubar->addMenu( trUtf8( "" ) );
 }
 
 
@@ -1158,6 +1160,16 @@ void MainForm::openSongFile( const QString& sFilename )
 		QMessageBox::information( this, "Hydrogen", trUtf8("Error loading song.") );
 		return;
 	}
+
+	if(this->isFullScreen()){
+
+		QString qsSongName( pSong->__name );
+		if( qsSongName == "Untitled Song" && !pSong->get_filename().isEmpty() ){
+			qsSongName = pSong->get_filename().section( '/', -1 );
+		}
+		m_pRecentSongInfo->setTitle( QString("     >> ") + QString(qsSongName) + QString(" << "));
+}
+
 	h2app->m_undoStack->clear();
 
 	// add the new loaded song in the "last used song" vector
@@ -1520,6 +1532,7 @@ void MainForm::playlistLoadSongEvent (int nIndex)
                 songName = songName.section( '/', -1 );
         }
         setWindowTitle( songName  );
+		if(this->isFullScreen()) setRecentSongInfo(QString("     >> ") + songName + QString(" << "));
 
         h2app->getMainForm()->updateRecentUsedSongList();
 	h2app->closeFXProperties();
@@ -1733,6 +1746,10 @@ bool MainForm::handleSelectNextPrevSongOnPlaylist( int step )
 		return FALSE;
 
 	return TRUE;
+}
+
+void MainForm::setRecentSongInfo(const QString& title){
+	m_pRecentSongInfo->setTitle( title );
 }
 
 

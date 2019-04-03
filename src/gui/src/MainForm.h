@@ -59,6 +59,8 @@ class MainForm : public QMainWindow, public EventListener, public H2Core::Object
 		virtual void undoRedoActionEvent( int nEvent );
 		static void usr1SignalHandler(int unused);
 
+		void setRecentSongInfo(const QString& title );
+
 
 public slots:
 		void showPreferencesDialog();
@@ -140,6 +142,7 @@ public slots:
 		QAction *m_pDrumkitAction;
 
 		QMenu *m_pRecentFilesMenu;
+		QMenu *m_pRecentSongInfo;
 		QAction *m_pRecentFileAction0;
 		QAction *m_pRecentFileAction1;
 		QAction *m_pRecentFileAction2;

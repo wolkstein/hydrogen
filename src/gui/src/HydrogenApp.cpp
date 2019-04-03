@@ -99,7 +99,7 @@ HydrogenApp::HydrogenApp( MainForm *pMainForm, Song *pFirstSong )
 		qsSongName = qsSongName.section( '/', -1 );
 	}
 
-	setWindowTitle( qsSongName  );
+
 
 	Preferences *pPref = Preferences::get_instance();
 
@@ -120,7 +120,9 @@ HydrogenApp::HydrogenApp( MainForm *pMainForm, Song *pFirstSong )
 	m_pDirector = new Director( 0 );
 //	m_pSampleEditor = new SampleEditor( 0 );
 	
-        showInfoSplash();	// First time information
+	showInfoSplash();	// First time information
+
+	setWindowTitle( qsSongName  );
 }
 
 
@@ -401,7 +403,12 @@ void HydrogenApp::setStatusBarMessage( const QString& msg, int msec )
 }
 
 void HydrogenApp::setWindowTitle( const QString& title){
+
 	m_pMainForm->setWindowTitle( ( "Hydrogen " + QString( get_version().c_str()) + QString( " - " ) + title ) );
+
+
+	if(m_pMainForm->isFullScreen())
+			m_pMainForm->setRecentSongInfo( QString("     >> ") + title + QString(" << "));
 }
 
 void HydrogenApp::setScrollStatusBarMessage( const QString& msg, int msec, bool test )

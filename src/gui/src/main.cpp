@@ -283,6 +283,7 @@ int main(int argc, char *argv[])
 		___INFOLOG( "Using data path: " + H2Core::Filesystem::sys_data_path() );
 
 		H2Core::Preferences *pPref = H2Core::Preferences::get_instance();
+		pPref->setStartInFullscreenMode( fullscreen );
 
 #ifdef H2CORE_HAVE_LASH
 
@@ -413,7 +414,7 @@ int main(int argc, char *argv[])
 		pPref->setJackSessionApplicationPath( path );
 #endif
 
-		pPref->setStartInFullscreenMode( fullscreen );
+
 
 		// Hydrogen here to honor all preferences.
 		H2Core::Hydrogen::create_instance();
